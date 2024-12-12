@@ -18,13 +18,12 @@ import lombok.Data;
 @Entity
 @Table(name = "bookings")
 public class Booking {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @NotNull(message = "Check-in date is mandatory")
     private LocalDate checkInDate;
-
     @NotNull(message = "Check-out date is mandatory")
     private LocalDate checkOutDate;
     @Min(value = 1, message = "Number of adults must be at least 1")

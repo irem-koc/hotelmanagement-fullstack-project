@@ -20,7 +20,10 @@ public class JWTUtils {
     private final SecretKey Key;
 
     public JWTUtils() {
-        String secretString = "${token.signing.key}";
+        String secretString = System.getenv("TOKEN_KEY");
+        if (secretString == null || secretString.isEmpty()) {
+            throw new IllegalStateException("Çevresel değişken 'TOKEN_KEY' bulunamadı.");
+        }
         byte[] secretBytes = Base64.getDecoder().decode(secretString.getBytes(StandardCharsets.UTF_8));
         this.Key = new SecretKeySpec(secretBytes, "HmacSHA256");
     }

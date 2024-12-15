@@ -1,6 +1,7 @@
 package com.iremkoc.hotel.hotelmanagement.service.interfaces;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
@@ -14,14 +15,14 @@ public interface IRoomService {
 
     List<String> getAllRoomTypes();
 
-    Response getRoomById(String roomId);
+    Response getRoomById(Long roomId);
 
-    Response deleteRoom(String roomId);
+    Response deleteRoom(Long roomId);
 
-    Response updateRoom(String roomId, MultipartFile photo, String roomType, BigDecimal roomPrice,
+    Response updateRoom(Long roomId, MultipartFile photo, String roomType, BigDecimal roomPrice,
             String roomDescription);
 
-    Response getAvailableRoomsByDataAndRoomType(String roomType, String checkInDate, String checkOutDate);
+    Response getAvailableRoomsByDataAndRoomType(String roomType, LocalDate checkInDate, LocalDate checkOutDate);
 
     Response getAllAvailableRooms();
 }

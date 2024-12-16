@@ -1,5 +1,6 @@
 package com.iremkoc.hotel.hotelmanagement.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,6 +15,7 @@ import com.iremkoc.hotel.hotelmanagement.service.interfaces.IUserService;
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
+    @Autowired
     private IUserService userService;
 
     @PostMapping("/register")

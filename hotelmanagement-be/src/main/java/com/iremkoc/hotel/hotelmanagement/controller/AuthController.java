@@ -13,7 +13,7 @@ import com.iremkoc.hotel.hotelmanagement.entity.User;
 import com.iremkoc.hotel.hotelmanagement.service.interfaces.IUserService;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/api/v1/auth")
 public class AuthController {
     @Autowired
     private IUserService userService;

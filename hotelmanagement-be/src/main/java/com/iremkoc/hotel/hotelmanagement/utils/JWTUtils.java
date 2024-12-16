@@ -20,7 +20,8 @@ public class JWTUtils {
     private final SecretKey Key;
 
     public JWTUtils() {
-        String secretString = System.getenv("TOKEN_KEY");
+        // TODO: make it readable from env file
+        String secretString = "ksxBgo8Lfljf8Q4dhBYWjfeSYTRiLck16yk8JZh74g8=";
         if (secretString == null || secretString.isEmpty()) {
             throw new IllegalStateException("Çevresel değişken 'TOKEN_KEY' bulunamadı.");
         }

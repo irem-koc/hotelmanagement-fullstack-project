@@ -24,8 +24,6 @@ public class RoomService implements IRoomService {
     private RoomRepository roomRepository;
 
     @Autowired
-
-    @Autowired
     private AwsS3Service awsS3Service;
 
     @Override

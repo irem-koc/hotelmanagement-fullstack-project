@@ -53,7 +53,7 @@ public class UserService implements IUserService {
             response.setStatusCode(500);
             response.setMessage("Error occured during user registration " + e.getMessage());
         }
-        return null;
+        return response;
     }
 
     @Override

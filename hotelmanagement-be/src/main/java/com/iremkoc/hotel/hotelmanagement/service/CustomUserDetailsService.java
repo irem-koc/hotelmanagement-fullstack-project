@@ -10,9 +10,9 @@ import com.iremkoc.hotel.hotelmanagement.repository.UserRepository;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
+    @Autowired
     private UserRepository userRepository;
 
-    @Autowired
     @Override
     public UserDetails loadUserByUsername(String username) throws OurException {
         return userRepository.findByEmail(username)

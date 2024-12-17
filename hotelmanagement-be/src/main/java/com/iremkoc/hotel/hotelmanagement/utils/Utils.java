@@ -90,7 +90,7 @@ public class Utils {
         return userDto;
     }
 
-    private static BookingDto mapBookingEntityToBookingDtoBlusBookedRoom(Booking booking, boolean mapUser) {
+    public static BookingDto mapBookingEntityToBookingDtoBlusBookedRoom(Booking booking, boolean mapUser) {
         BookingDto bookingDto = new BookingDto();
         bookingDto.setId(booking.getId());
         bookingDto.setCheckInDate(booking.getCheckInDate());

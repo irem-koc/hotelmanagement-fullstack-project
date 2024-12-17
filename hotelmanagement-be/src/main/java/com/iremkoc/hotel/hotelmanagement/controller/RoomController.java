@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.iremkoc.hotel.hotelmanagement.dto.Response;
 import com.iremkoc.hotel.hotelmanagement.service.interfaces.IRoomService;
@@ -28,7 +27,7 @@ public class RoomController {
 
     @PostMapping("/add")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<Response> addNewRoom(@RequestParam(value = "photo", required = false) MultipartFile photo,
+    public ResponseEntity<Response> addNewRoom(@RequestParam(value = "photo", required = false) String photo,
             @RequestParam(value = "roomType", required = false) String roomType,
             @RequestParam(value = "roomPrice", required = false) BigDecimal roomPrice,
             @RequestParam(value = "roomDescription", required = false) String roomDescription) {
@@ -85,7 +84,7 @@ public class RoomController {
     @PostMapping("/update/{roomId}")
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<Response> updateRoom(@PathVariable Long id,
-            @RequestParam(value = "photo", required = false) MultipartFile photo,
+            @RequestParam(value = "photo", required = false) String photo,
             @RequestParam(value = "roomType", required = false) String roomType,
             @RequestParam(value = "roomPrice", required = false) BigDecimal roomPrice,
             @RequestParam(value = "roomDescription", required = false) String roomDescription) {

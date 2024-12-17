@@ -7,7 +7,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.iremkoc.hotel.hotelmanagement.dto.Response;
 import com.iremkoc.hotel.hotelmanagement.dto.RoomDto;
@@ -27,13 +26,13 @@ public class RoomService implements IRoomService {
     private AwsS3Service awsS3Service;
 
     @Override
-    public Response addNewRoom(MultipartFile photo, String roomType, BigDecimal roomPrice, String roomDescription) {
+    public Response addNewRoom(String photo, String roomType, BigDecimal roomPrice, String roomDescription) {
         Response response = new Response();
         try {
-            String imageUrl = awsS3Service.saveImagetoS3(photo);
+            // String imageUrl = awsS3Service.saveImagetoS3(photo);
             Room room = new Room();
             room.setRoomDescription(roomDescription);
-            room.setRoomPhotoUrl(imageUrl);
+            room.setRoomPhotoUrl(photo);
             room.setRoomPrice(roomPrice);
             room.setRoomType(roomType);
             Room savedRoom = roomRepository.save(room);
@@ -108,14 +107,11 @@ public class RoomService implements IRoomService {
     }
 
     @Override
-    public Response updateRoom(Long roomId, MultipartFile photo, String roomType, BigDecimal roomPrice,
+    public Response updateRoom(Long roomId, String photo, String roomType, BigDecimal roomPrice,
             String roomDescription) {
         Response response = new Response();
         try {
-            String imageUrl = null;
-            if (photo != null & !photo.isEmpty()) {
-                imageUrl = awsS3Service.saveImagetoS3(photo);
-            }
+
             Room room = roomRepository.findById(roomId)
                     .orElseThrow(() -> new OurException("Room not found for update operation!"));
             if (roomType != null)
@@ -124,8 +120,8 @@ public class RoomService implements IRoomService {
                 room.setRoomPrice(roomPrice);
             if (roomDescription != null)
                 room.setRoomDescription(roomDescription);
-            if (imageUrl != null)
-                room.setRoomPhotoUrl(imageUrl);
+            if (photo != null)
+                room.setRoomPhotoUrl(photo);
             Room updatedRoom = roomRepository.save(room);
             RoomDto roomDto = Utils.mapRoomEntityToRoomDto(updatedRoom);
             response.setStatusCode(200);

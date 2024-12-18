@@ -22,3 +22,5 @@ package-lock.json
 *.njsproj
 *.sln
 *.sw?
+postcss.config.js
+tailwind.config.js

@@ -1,16 +1,17 @@
 import { Outlet } from "react-router";
 import AuthNavbar from "../components/AuthNavbar/AuthNavbar";
+import Container from "../components/Container/Container";
 import Footer from "../components/Footer/Footer";
 
 type Props = {};
 
 const AuthLayout = (props: Props) => {
   return (
-    <div>
+    <div className="flex flex-col min-h-screen">
       <AuthNavbar />
-      <main>
+      <Container>
         <Outlet />
-      </main>
+      </Container>
       <Footer />
     </div>
   );

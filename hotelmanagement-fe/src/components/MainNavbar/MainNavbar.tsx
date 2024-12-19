@@ -1,8 +1,15 @@
-import { Link } from "react-router";
+import { Link, useLocation } from "react-router";
 
 const MainNavbar = () => {
+  const location = useLocation();
+
+  const getActiveClass = (path: string) =>
+    location.pathname === path
+      ? "bg-white text-blue-600"
+      : "hover:text-blue-300 hover:border-b-2 hover:border-gray-300 transition duration-300 ";
+
   return (
-    <nav className="bg-blue-600 text-white shadow-md">
+    <nav className="bg-blue-800 text-white shadow-lg">
       <div className="container mx-auto p-4 flex justify-between items-center">
         <div className="flex items-center space-x-4">
           <img
@@ -21,7 +28,7 @@ const MainNavbar = () => {
           <li>
             <Link
               to="/main/home"
-              className="hover:text-blue-300 transition duration-300"
+              className={`px-3 py-2 rounded ${getActiveClass("/main/home")}`}
             >
               Home
             </Link>
@@ -29,7 +36,7 @@ const MainNavbar = () => {
           <li>
             <Link
               to="/main/rooms"
-              className="hover:text-blue-300 transition duration-300"
+              className={`px-3 py-2 rounded ${getActiveClass("/main/rooms")}`}
             >
               Rooms
             </Link>
@@ -37,7 +44,7 @@ const MainNavbar = () => {
           <li>
             <Link
               to="/main/booking"
-              className="hover:text-blue-300 transition duration-300"
+              className={`px-3 py-2 rounded ${getActiveClass("/main/booking")}`}
             >
               Find my Booking
             </Link>
@@ -45,17 +52,28 @@ const MainNavbar = () => {
           <li>
             <Link
               to="/main/profile"
-              className="hover:text-blue-300 transition duration-300"
+              className={`px-3 py-2 rounded ${getActiveClass("/main/profile")}`}
             >
               Profile
             </Link>
           </li>
           <li>
-            <Link to="" className="hover:text-blue-300 transition duration-300">
+            <Link
+              to="/auth/login"
+              className="px-3 py-2 rounded hover:text-blue-300 transition duration-300"
+            >
               Logout
             </Link>
           </li>
         </ul>
+        <div className="flex items-center space-x-4">
+          <div className="flex items-center justify-center w-10 h-10 bg-white text-blue-800 rounded-full font-bold">
+            U
+          </div>
+          <span className="hidden sm:block text-sm font-medium">
+            Welcome, User!
+          </span>
+        </div>
       </div>
     </nav>
   );

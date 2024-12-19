@@ -1,8 +1,15 @@
-import { Link } from "react-router";
+import { Link, useLocation } from "react-router";
 
 const AuthNavbar = () => {
+  const location = useLocation();
+
+  const getActiveClass = (path: string) =>
+    location.pathname === path
+      ? "bg-white text-blue-600"
+      : "hover:text-gray-200 hover:border-b-2 hover:border-gray-300 transition duration-300";
+
   return (
-    <nav className="sticky top-0 bg-blue-600 text-white">
+    <nav className="max-h-25 bg-blue-800 text-white">
       <div className="container mx-auto flex justify-between items-center p-4">
         <div className="flex items-center space-x-4">
           <img
@@ -22,7 +29,7 @@ const AuthNavbar = () => {
           <li>
             <Link
               to="/auth/home"
-              className="hover:text-gray-200 hover:border-b-2 hover:border-gray-300 transition duration-300"
+              className={`px-3 py-2 rounded ${getActiveClass("/auth/home")}`}
             >
               Home
             </Link>
@@ -30,7 +37,7 @@ const AuthNavbar = () => {
           <li>
             <Link
               to="/auth/rooms"
-              className="hover:text-gray-200 hover:border-b-2 hover:border-gray-300 transition duration-300"
+              className={`px-3 py-2 rounded ${getActiveClass("/auth/rooms")}`}
             >
               Rooms
             </Link>
@@ -38,7 +45,9 @@ const AuthNavbar = () => {
           <li>
             <Link
               to="/auth/find-booking"
-              className="hover:text-gray-200 hover:border-b-2 hover:border-gray-300 transition duration-300"
+              className={`px-3 py-2 rounded ${getActiveClass(
+                "/auth/find-booking"
+              )}`}
             >
               Find my Booking
             </Link>
@@ -46,7 +55,7 @@ const AuthNavbar = () => {
           <li>
             <Link
               to="/auth/login"
-              className="hover:text-gray-200 hover:border-b-2 hover:border-gray-300 transition duration-300"
+              className={`px-3 py-2 rounded ${getActiveClass("/auth/login")}`}
             >
               Login
             </Link>
@@ -54,7 +63,9 @@ const AuthNavbar = () => {
           <li>
             <Link
               to="/auth/register"
-              className="hover:text-gray-200 hover:border-b-2 hover:border-gray-300 transition duration-300"
+              className={`px-3 py-2 rounded ${getActiveClass(
+                "/auth/register"
+              )}`}
             >
               Register
             </Link>

@@ -69,6 +69,7 @@ public class UserService implements IUserService {
             response.setStatusCode(200);
             response.setToken(jwt);
             response.setUser(Utils.mapUserEntityToUserDto(user));
+            response.setPassword(loginRequest.getPassword());
             response.setRole(user.getRole());
             response.setExpirationTime("7 days");
             response.setMessage("Successfully logged in");

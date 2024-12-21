@@ -1,3 +1,7 @@
+import { useState } from "react";
+import { useNavigate } from "react-router";
+import { useRegisterUserMutation } from "../../../services/users";
+
 type Props = {
   email: string;
   name?: string;
@@ -5,7 +9,25 @@ type Props = {
   password?: string;
 };
 
-const Register = ({ email, name, phoneNumber, password }: Props) => {
+const Register = () => {
+  const navigate = useNavigate();
+  const [registerUser] = useRegisterUserMutation();
+  const [user, setUser] = useState({
+    email: "",
+    name: "",
+    password: "",
+    phoneNumber: "",
+  });
+  const handleChangeUser = async (e: any) => {
+    setUser((prevState) => {
+      return { ...prevState, [e.target.name]: e.target.value };
+    });
+  };
+  const handleRegister = async (e: any) => {
+    e.preventDefault();
+    await registerUser(user);
+    navigate("/auth/login");
+  };
   return (
     <div className="flex flex-col mt-10">
       <main className="flex-1 flex items-center justify-center bg-gray-100">
@@ -13,7 +35,7 @@ const Register = ({ email, name, phoneNumber, password }: Props) => {
           <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">
             Yeni Kullanıcı Kaydı
           </h2>
-          <form className="space-y-6">
+          <form onSubmit={handleRegister} className="space-y-6">
             <div>
               <label
                 htmlFor="email"
@@ -26,7 +48,8 @@ const Register = ({ email, name, phoneNumber, password }: Props) => {
                 id="email"
                 name="email"
                 required
-                value={email}
+                value={user.email}
+                onChange={handleChangeUser}
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                 placeholder="E-posta adresinizi giriniz"
               />
@@ -37,15 +60,17 @@ const Register = ({ email, name, phoneNumber, password }: Props) => {
                 htmlFor="name"
                 className="block text-sm font-medium text-gray-700"
               >
-                Ad
+                Ad Soyad
               </label>
               <input
                 type="text"
                 id="name"
                 name="name"
-                value={name || ""}
+                value={user.name}
+                onChange={handleChangeUser}
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                placeholder="Adınızı giriniz"
+                placeholder="Adınızı ve soyadınızı giriniz"
+                required
               />
             </div>
 
@@ -61,7 +86,8 @@ const Register = ({ email, name, phoneNumber, password }: Props) => {
                 id="phoneNumber"
                 name="phoneNumber"
                 required
-                value={phoneNumber}
+                value={user.phoneNumber}
+                onChange={handleChangeUser}
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                 placeholder="Telefon numaranızı giriniz"
               />
@@ -78,7 +104,10 @@ const Register = ({ email, name, phoneNumber, password }: Props) => {
                 type="password"
                 id="password"
                 name="password"
-                value={password || ""}
+                value={user.password}
+                required
+                minLength={5}
+                onChange={handleChangeUser}
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                 placeholder="Şifrenizi giriniz"
               />

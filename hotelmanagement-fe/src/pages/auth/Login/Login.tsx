@@ -1,4 +1,39 @@
+import { useState } from "react";
+import { useNavigate } from "react-router";
+import { saveUserLoggedIn } from "../../../features/users/userSlice";
+import { useAppDispatch } from "../../../hooks/hook";
+import { useLoginUserMutation } from "../../../services/users";
+
 const Login = () => {
+  const [user, setUser] = useState({
+    email: "",
+    password: "",
+  });
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const [loginUser] = useLoginUserMutation();
+
+  const handleChangeUser = (e) => {
+    setUser((prevState) => {
+      return { ...prevState, [e.target.name]: e.target.value };
+    });
+  };
+
+  const handleLogIn = async (e: any) => {
+    e.preventDefault();
+    let response = await loginUser(user).unwrap();
+    dispatch(
+      saveUserLoggedIn({
+        email: response.user.email,
+        username: response.user.name,
+        role: response.user.role,
+        token: response.token,
+        password: response.password,
+      })
+    );
+    navigate("/main/home");
+  };
+
   return (
     <div className="mt-16">
       <main className="flex-1 flex items-center justify-center bg-gray-100">
@@ -6,7 +41,7 @@ const Login = () => {
           <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">
             Otel Yönetim Sistemi - Giriş
           </h2>
-          <form className="space-y-6">
+          <form onSubmit={handleLogIn} className="space-y-6">
             <div>
               <label
                 htmlFor="email"
@@ -15,6 +50,8 @@ const Login = () => {
                 E-posta
               </label>
               <input
+                value={user.email}
+                onChange={handleChangeUser}
                 type="email"
                 id="email"
                 name="email"
@@ -32,6 +69,8 @@ const Login = () => {
                 Şifre
               </label>
               <input
+                value={user.password}
+                onChange={handleChangeUser}
                 type="password"
                 id="password"
                 name="password"

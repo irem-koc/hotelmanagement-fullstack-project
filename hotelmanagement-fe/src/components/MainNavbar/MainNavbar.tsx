@@ -1,8 +1,9 @@
 import { Link, useLocation } from "react-router";
+import { useAppSelector } from "../../hooks/hook";
 
 const MainNavbar = () => {
+  const { username } = useAppSelector((state) => state.users);
   const location = useLocation();
-
   const getActiveClass = (path: string) =>
     location.pathname === path
       ? "bg-white text-blue-600"
@@ -68,10 +69,10 @@ const MainNavbar = () => {
         </ul>
         <div className="flex items-center space-x-4">
           <div className="flex items-center justify-center w-10 h-10 bg-white text-blue-800 rounded-full font-bold">
-            U
+            {username[0]}
           </div>
           <span className="hidden sm:block text-sm font-medium">
-            Welcome, User!
+            Welcome, {username}!
           </span>
         </div>
       </div>

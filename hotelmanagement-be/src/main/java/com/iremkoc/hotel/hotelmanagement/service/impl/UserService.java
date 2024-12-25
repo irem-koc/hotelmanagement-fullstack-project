@@ -46,6 +46,7 @@ public class UserService implements IUserService {
             UserDto userDto = Utils.mapUserEntityToUserDto(savedUser);
             response.setUser(userDto);
             response.setStatusCode(200);
+            response.setMessage("Successfully registered");
         } catch (OurException e) {
             response.setStatusCode(400);
             response.setMessage(e.getMessage());

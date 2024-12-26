@@ -9,7 +9,7 @@ const AuthNavbar = () => {
       : "hover:text-gray-200 hover:border-b-2 hover:border-gray-300 transition duration-300";
 
   return (
-    <nav className="max-h-25 bg-blue-800 text-white">
+    <nav className="sticky top-0 z-10 max-h-25 bg-blue-800 text-white">
       <div className="container mx-auto flex justify-between items-center p-4">
         <div className="flex items-center space-x-4">
           <img

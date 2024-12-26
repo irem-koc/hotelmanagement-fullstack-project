@@ -1,14 +1,17 @@
 import { Link, useLocation } from "react-router";
-import { useAppSelector } from "../../hooks/hook";
+import { getFromLocalStorage } from "../../hooks/localStorage";
 
 const MainNavbar = () => {
-  const { username } = useAppSelector((state) => state.users);
+  const username = getFromLocalStorage("user").username;
+  console.log(username, "helloo");
   const location = useLocation();
   const getActiveClass = (path: string) =>
     location.pathname === path
       ? "bg-white text-blue-600"
-      : "hover:text-blue-300 hover:border-b-2 hover:border-gray-300 transition duration-300 ";
-
+      : "hover:text-white hover:border-b-2 hover:border-gray-300 transition duration-300 ";
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+  };
   return (
     <nav className="bg-blue-800 text-white shadow-lg">
       <div className="container mx-auto p-4 flex justify-between items-center">
@@ -60,8 +63,9 @@ const MainNavbar = () => {
           </li>
           <li>
             <Link
+              onClick={handleLogout}
               to="/auth/login"
-              className="px-3 py-2 rounded hover:text-blue-300 transition duration-300"
+              className="px-3 py-2 rounded hover:text-white transition duration-300"
             >
               Logout
             </Link>

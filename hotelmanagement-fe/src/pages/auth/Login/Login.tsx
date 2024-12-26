@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router";
 import { saveUserLoggedIn } from "../../../features/users/userSlice";
 import { useAppDispatch } from "../../../hooks/hook";
+import { saveToLocalStorage } from "../../../hooks/localStorage";
 import { useLoginUserMutation } from "../../../services/users";
 
 const Login = () => {
@@ -22,15 +23,15 @@ const Login = () => {
   const handleLogIn = async (e: any) => {
     e.preventDefault();
     let response = await loginUser(user).unwrap();
-    dispatch(
-      saveUserLoggedIn({
-        email: response.user.email,
-        username: response.user.name,
-        role: response.user.role,
-        token: response.token,
-        password: response.password,
-      })
-    );
+    const result = {
+      email: response.user.email,
+      username: response.user.name,
+      role: response.user.role,
+      token: response.token,
+      password: response.password,
+    };
+    dispatch(saveUserLoggedIn(result));
+    saveToLocalStorage("user", result);
     navigate("/main/home");
   };
 

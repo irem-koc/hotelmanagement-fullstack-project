@@ -11,7 +11,7 @@ type Props = {
 
 const Register = () => {
   const navigate = useNavigate();
-  const [registerUser] = useRegisterUserMutation();
+  const [registerUser, {}] = useRegisterUserMutation();
   const [user, setUser] = useState({
     email: "",
     name: "",
@@ -26,7 +26,9 @@ const Register = () => {
   const handleRegister = async (e: any) => {
     e.preventDefault();
     await registerUser(user);
-    navigate("/auth/login");
+    if (status === "fulfilled") {
+      navigate("/auth/login");
+    }
   };
   return (
     <div className="flex flex-col mt-10">

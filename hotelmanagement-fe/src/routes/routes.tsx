@@ -1,6 +1,5 @@
 // routes.tsx or where your routes are defined
 import { Navigate, RouteObject } from "react-router";
-import { useAppSelector } from "../hooks/hook"; // Import useAppSelector hook
 import AuthLayout from "../layouts/AuthLayout";
 import MainLayout from "../layouts/MainLayout";
 import ProtectedRoute from "./protectedRoute";
@@ -10,18 +9,18 @@ import FindBooking from "../pages/auth/FindBooking/FindBooking";
 import AuthHome from "../pages/auth/Home/Home";
 import Rooms from "../pages/auth/Rooms/Rooms";
 
+import { getFromLocalStorage } from "../hooks/localStorage";
 import Login from "../pages/auth/Login/Login";
 import Register from "../pages/auth/Register/Register";
 import Booking from "../pages/main/Booking/Booking";
 import MainHome from "../pages/main/Home/Home";
 import Profile from "../pages/main/Profile/Profile";
 import MainRooms from "../pages/main/Rooms/Rooms";
-import { isAuthenticated } from "../utils/auth";
 
 // Create a wrapper component to get authentication status
 const AuthRouteWrapper = ({ children }: { children: React.ReactNode }) => {
-  const token = useAppSelector((state) => state.users.token);
-  const isAuthorized = isAuthenticated(token);
+  const isAuthorized = getFromLocalStorage("user").token;
+  console.log(isAuthorized, "isAuthorizedisAuthorized");
   return <>{children(isAuthorized)}</>;
 };
 

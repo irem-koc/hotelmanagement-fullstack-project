@@ -32,7 +32,11 @@ const Login = () => {
     };
     dispatch(saveUserLoggedIn(result));
     saveToLocalStorage("user", result);
-    navigate("/main/home");
+    if (response.user.role === "ADMIN") {
+      navigate("/admin/home");
+    } else {
+      navigate("/main/home");
+    }
   };
 
   return (

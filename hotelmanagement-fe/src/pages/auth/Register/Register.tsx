@@ -27,7 +27,6 @@ const Register = () => {
     e.preventDefault();
     try {
       const result = await registerUser(user).unwrap();
-      console.log("Registration successful:", result);
       navigate("/auth/login");
     } catch (error) {
       console.error("Registration failed:", error);

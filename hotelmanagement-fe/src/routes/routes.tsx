@@ -17,9 +17,8 @@ import MainHome from "../pages/main/Home/Home";
 import Profile from "../pages/main/Profile/Profile";
 import MainRooms from "../pages/main/Rooms/Rooms";
 
-// Create a wrapper component to get authentication status
 const AuthRouteWrapper = ({ children }: { children: React.ReactNode }) => {
-  const isAuthorized = getFromLocalStorage("user").token;
+  const isAuthorized = getFromLocalStorage("user")?.token;
   console.log(isAuthorized, "isAuthorizedisAuthorized");
   return <>{children(isAuthorized)}</>;
 };

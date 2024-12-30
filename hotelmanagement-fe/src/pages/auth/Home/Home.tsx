@@ -1,4 +1,4 @@
-import "react-datepicker/dist/react-datepicker.css"; // Import DatePicker styles
+import "react-datepicker/dist/react-datepicker.css";
 import Container from "../../../components/Container/Container";
 import HotelServices from "../../../components/HotelServices/HotelServices";
 import RoomFilter from "../../../components/RoomFilter/RoomFilter";

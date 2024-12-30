@@ -42,7 +42,7 @@ public class RoomController {
         return ResponseEntity.status(response.getStatusCode()).body(response);
     }
 
-    @GetMapping("/add")
+    @GetMapping("/all")
     public ResponseEntity<Response> getAll() {
         Response response = roomService.getAllRooms();
         return ResponseEntity.status(response.getStatusCode()).body(response);
@@ -67,13 +67,13 @@ public class RoomController {
 
     @GetMapping("/available-rooms-by-date-and-type")
     public ResponseEntity<Response> getAvailableRoomsByDateAndType(
-            @RequestParam(required = false) String roomType,
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate checkInDate,
-            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate checkOutDate) {
-        if (roomType == null || roomType.isEmpty() || checkInDate == null || checkOutDate == null) {
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate checkOutDate,
+            @RequestParam(required = false) String roomType) {
+        if (roomType == null || checkInDate == null || checkOutDate == null) {
             Response response = new Response();
             response.setStatusCode(400);
-            response.setMessage("Please provide values for all fields (roomType, checkInDate, checkOutDate)");
+            response.setMessage("Please provide values for all fields (roomType,checkInDate, checkOutDate)");
             return ResponseEntity.status(response.getStatusCode()).body(response);
 
         }

@@ -1,5 +1,6 @@
 import "react-datepicker/dist/react-datepicker.css"; // Import DatePicker styles
 import Container from "../../../components/Container/Container";
+import HotelServices from "../../../components/HotelServices/HotelServices";
 import RoomFilter from "../../../components/RoomFilter/RoomFilter";
 
 const Home = () => {
@@ -16,7 +17,7 @@ const Home = () => {
           <h1 className="text-4xl md:text-6xl font-bold text-white text-center drop-shadow-lg">
             <span className="bg-gradient-to-r from-indigo-700 via-purple-400 to-blue-500 bg-clip-text text-transparent">
               Otel Yönetim Sistemine
-            </span>{" "}
+            </span>
             Hoş Geldiniz
           </h1>
           <p className="text-lg md:text-xl bg-gradient-to-r from-white via-orange-400 to-green-700 bg-clip-text text-transparent text-center">
@@ -25,6 +26,7 @@ const Home = () => {
         </div>
       </div>
       <RoomFilter />
+      <HotelServices />
     </Container>
   );
 };

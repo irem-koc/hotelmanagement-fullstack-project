@@ -1,10 +1,12 @@
 import { useState } from "react";
 import DatePicker from "react-datepicker";
+import { useGetRoomTypesQuery } from "../../hooks/rooms";
 import CustomInput from "../CustomInput/CustomInput";
 
 type Props = {};
 
 const RoomFilter = (props: Props) => {
+  const { data: categories } = useGetRoomTypesQuery();
   const [startDate, setStartDate] = useState(new Date());
   const [roomType, setRoomType] = useState("");
   const [checkInDate, setCheckInDate] = useState(null);
@@ -31,10 +33,13 @@ const RoomFilter = (props: Props) => {
           onChange={handleRoomTypeChange}
           className="w-full mt-2 p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
-          <option value="">Select Room Type</option>
-          <option value="single">Single</option>
-          <option value="double">Double</option>
-          <option value="suite">Suite</option>
+          <option value={"all"}>All Products</option>
+          {categories &&
+            categories.map((category: string) => (
+              <option key={category} value={category}>
+                {category.charAt(0).toUpperCase() + String(category).slice(1)}
+              </option>
+            ))}
         </select>
       </div>
 

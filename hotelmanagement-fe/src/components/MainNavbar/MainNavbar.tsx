@@ -3,7 +3,6 @@ import { getFromLocalStorage } from "../../hooks/localStorage";
 
 const MainNavbar = () => {
   const username = getFromLocalStorage("user").username;
-  console.log(username, "helloo");
   const location = useLocation();
   const getActiveClass = (path: string) =>
     location.pathname === path

@@ -25,9 +25,12 @@ const Register = () => {
   };
   const handleRegister = async (e: any) => {
     e.preventDefault();
-    await registerUser(user);
-    if (status === "fulfilled") {
+    try {
+      const result = await registerUser(user).unwrap();
+      console.log("Registration successful:", result);
       navigate("/auth/login");
+    } catch (error) {
+      console.error("Registration failed:", error);
     }
   };
   return (

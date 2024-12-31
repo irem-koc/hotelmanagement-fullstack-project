@@ -25,7 +25,7 @@ const Rooms = () => {
       <div className="w-3/4 mx-auto flex flex-col gap-8 my-8">
         {rooms?.roomList && rooms.roomList.length > 0 ? (
           rooms.roomList.map((room: Room) => (
-            <RoomCard key={room.id} {...room} />
+            <RoomCard where="/auth/login" key={room.id} {...room} />
           ))
         ) : (
           <p className="text-center text-gray-600 col-span-full">

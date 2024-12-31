@@ -2,14 +2,20 @@ import { useState } from "react";
 import { useNavigate } from "react-router";
 import { saveUserLoggedIn } from "../../../features/users/userSlice";
 import { useAppDispatch } from "../../../hooks/hook";
-import { saveToLocalStorage } from "../../../hooks/localStorage";
+import {
+  getFromLocalStorage,
+  saveToLocalStorage,
+} from "../../../hooks/localStorage";
 import { useLoginUserMutation } from "../../../services/users";
 
 const Login = () => {
+  const username = getFromLocalStorage("user")?.email;
+  const isRememberMe = getFromLocalStorage("isRememberMe");
+
   const [user, setUser] = useState({
-    email: "",
+    email: isRememberMe ? username : "",
     password: "",
-    rememberMe: false,
+    rememberMe: isRememberMe ?? false,
   });
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -35,6 +41,8 @@ const Login = () => {
     };
     dispatch(saveUserLoggedIn(result));
     saveToLocalStorage("user", result);
+    saveToLocalStorage("isRememberMe", user.rememberMe);
+
     if (response.user.role === "ADMIN") {
       navigate("/admin/home");
     } else {

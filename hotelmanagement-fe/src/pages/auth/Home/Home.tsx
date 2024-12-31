@@ -16,7 +16,7 @@ const Home = () => {
         <div className="relative z-0 flex flex-col items-center justify-center h-full space-y-4">
           <h1 className="text-4xl md:text-6xl font-bold text-white text-center drop-shadow-lg">
             <span className="bg-gradient-to-r from-indigo-700 via-purple-400 to-blue-500 bg-clip-text text-transparent">
-              Otel Yönetim Sistemine
+              Otel Yönetim Sistemine{" "}
             </span>
             Hoş Geldiniz
           </h1>

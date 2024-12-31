@@ -6,7 +6,7 @@ import { useGetRoomsQuery } from "../../../hooks/rooms";
 import { Room } from "../../../types/RoomType";
 
 const Rooms = () => {
-  const { data: rooms, isLoading, error } = useGetRoomsQuery();
+  const { data: rooms, isLoading, error, isSuccess } = useGetRoomsQuery();
   const [roomsData, setRoomsData] = useState<Room[] | null>(null);
 
   useEffect(() => {
@@ -14,18 +14,6 @@ const Rooms = () => {
       setRoomsData(rooms.roomList);
     }
   }, [rooms]);
-
-  if (isLoading) {
-    return <p className="text-center text-gray-600">Loading rooms...</p>;
-  }
-
-  if (error) {
-    return (
-      <p className="text-center text-red-600">
-        Something went wrong while fetching rooms.
-      </p>
-    );
-  }
 
   const handleRoomsData = (data: Room[]) => {
     setRoomsData(data);
@@ -35,7 +23,7 @@ const Rooms = () => {
     <Container>
       <RoomFilter handleData={handleRoomsData} />
       <div className="w-3/4 mx-auto flex flex-col gap-8 my-8">
-        {roomsData && roomsData.length > 0 ? (
+        {isSuccess && roomsData && roomsData.length > 0 ? (
           roomsData.map((room: Room) => (
             <RoomCard where="/auth/login" key={room.id} {...room} />
           ))

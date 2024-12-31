@@ -48,14 +48,6 @@ const RoomFilter = ({ handleData }: Props) => {
       .catch((error) => {
         console.error("Error fetching rooms:", error);
       });
-
-    setFilter((prev) => {
-      return {
-        roomType: prev.roomType,
-        checkInDate: null,
-        checkOutDate: null,
-      };
-    });
   };
 
   return (

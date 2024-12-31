@@ -9,15 +9,18 @@ const Login = () => {
   const [user, setUser] = useState({
     email: "",
     password: "",
+    rememberMe: false,
   });
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [loginUser] = useLoginUserMutation();
 
   const handleChangeUser = (e) => {
-    setUser((prevState) => {
-      return { ...prevState, [e.target.name]: e.target.value };
-    });
+    const { name, value } = e.target;
+    setUser((prevState) => ({
+      ...prevState,
+      [name]: name === "rememberMe" ? !user.rememberMe : value,
+    }));
   };
 
   const handleLogIn = async (e: any) => {
@@ -65,7 +68,6 @@ const Login = () => {
                 placeholder="E-posta adresinizi giriniz"
               />
             </div>
-
             <div>
               <label
                 htmlFor="password"
@@ -84,17 +86,18 @@ const Login = () => {
                 placeholder="Şifrenizi giriniz"
               />
             </div>
-
             <div className="flex items-center justify-between">
               <div className="flex items-center">
                 <input
-                  id="remember-me"
-                  name="remember-me"
+                  checked={user.rememberMe}
+                  onChange={handleChangeUser}
+                  id="rememberMe"
+                  name="rememberMe"
                   type="checkbox"
                   className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
                 />
                 <label
-                  htmlFor="remember-me"
+                  htmlFor="rememberMe"
                   className="ml-2 block text-sm text-gray-900"
                 >
                   Beni Hatırla

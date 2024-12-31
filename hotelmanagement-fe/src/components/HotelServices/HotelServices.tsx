@@ -2,7 +2,7 @@ import { Link } from "react-router";
 import { services } from "../../constants/services";
 const HotelServices = () => {
   return (
-    <div className="p-8">
+    <div className="w-3/4 mx-auto p-8">
       <Link
         to={"/auth/rooms"}
         className="text-orange-600 underline text-sm font-medium mb-4 inline-block"

@@ -1,9 +1,17 @@
+import { useState } from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import Container from "../../../components/Container/Container";
 import HotelServices from "../../../components/HotelServices/HotelServices";
+import RoomCard from "../../../components/RoomCard/RoomCard";
 import RoomFilter from "../../../components/RoomFilter/RoomFilter";
+import { Room } from "../../../types/RoomType";
 
 const Home = () => {
+  const [roomsData, setRoomsData] = useState<Room[] | null>(null);
+
+  const handleRoomsData = (data: Room[]) => {
+    setRoomsData(data);
+  };
   return (
     <Container>
       <div className="relative w-full h-screen pt-24">
@@ -25,7 +33,14 @@ const Home = () => {
           </p>
         </div>
       </div>
-      <RoomFilter />
+      <RoomFilter handleData={handleRoomsData} />
+      <div className="w-3/4 mx-auto flex flex-col gap-8 my-8">
+        {roomsData &&
+          roomsData.length > 0 &&
+          roomsData.map((room: Room) => (
+            <RoomCard where="/auth/login" key={room.id} {...room} />
+          ))}
+      </div>
       <HotelServices />
     </Container>
   );

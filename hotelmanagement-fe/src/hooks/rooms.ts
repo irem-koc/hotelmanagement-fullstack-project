@@ -8,6 +8,23 @@ export const roomsApi = apiWithTag.injectEndpoints({
     getRooms: build.query({
       query: () => ({ url: `rooms/all` }),
     }),
+    getAvailableRoomsByDateAndType: build.query({
+      query: ({ checkInDate, checkOutDate, roomType }) => {
+        const params = new URLSearchParams();
+        if (checkInDate?.length > 0) params.append("checkInDate", checkInDate);
+        if (checkOutDate?.length > 0)
+          params.append("checkOutDate", checkOutDate);
+        if (roomType?.length > 0) params.append("roomType", roomType);
+
+        return {
+          url: `rooms/available-rooms-by-date-and-type?${params.toString()}`,
+        };
+      },
+    }),
   }),
 });
-export const { useGetRoomTypesQuery, useGetRoomsQuery } = roomsApi;
+export const {
+  useGetRoomTypesQuery,
+  useGetRoomsQuery,
+  useLazyGetAvailableRoomsByDateAndTypeQuery,
+} = roomsApi;

@@ -1,27 +1,61 @@
+import { format } from "date-fns";
+import { tr } from "date-fns/locale/tr";
 import { useState } from "react";
-import DatePicker from "react-datepicker";
-import { useGetRoomTypesQuery } from "../../hooks/rooms";
+import DatePicker, { registerLocale } from "react-datepicker";
+import {
+  useGetRoomTypesQuery,
+  useLazyGetAvailableRoomsByDateAndTypeQuery,
+} from "../../hooks/rooms";
 import CustomInput from "../CustomInput/CustomInput";
+registerLocale("tr", tr);
+type Props = {
+  handleData: (data: any) => void;
+};
 
-type Props = {};
-
-const RoomFilter = (props: Props) => {
+const RoomFilter = ({ handleData }: Props) => {
   const { data: categories } = useGetRoomTypesQuery();
-  const [startDate, setStartDate] = useState(new Date());
-  const [roomType, setRoomType] = useState("");
-  const [checkInDate, setCheckInDate] = useState(null);
-  const [checkOutDate, setCheckOutDate] = useState(null);
 
-  const handleRoomTypeChange = (e) => {
-    setRoomType(e.target.value);
+  const [trigger, { data, isLoading }] =
+    useLazyGetAvailableRoomsByDateAndTypeQuery();
+
+  const [filter, setFilter] = useState({
+    roomType: "all",
+    checkInDate: null,
+    checkOutDate: null,
+  });
+  const handleChangeFilter = (name: string, value: Date | null) => {
+    setFilter((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
   };
 
-  const handleCheckInChange = (date) => {
-    setCheckInDate(date);
-  };
+  const handleSearch = () => {
+    const formattedFilter = {
+      ...filter,
+      checkInDate: filter.checkInDate
+        ? format(filter.checkInDate, "yyyy-MM-dd")
+        : null,
+      checkOutDate: filter.checkOutDate
+        ? format(filter.checkOutDate, "yyyy-MM-dd")
+        : null,
+    };
+    trigger(formattedFilter)
+      .unwrap()
+      .then((response) => {
+        handleData(response.roomList);
+      })
+      .catch((error) => {
+        console.error("Error fetching rooms:", error);
+      });
 
-  const handleCheckOutChange = (date) => {
-    setCheckOutDate(date);
+    setFilter((prev) => {
+      return {
+        roomType: prev.roomType,
+        checkInDate: null,
+        checkOutDate: null,
+      };
+    });
   };
 
   return (
@@ -29,11 +63,12 @@ const RoomFilter = (props: Props) => {
       <div className="flex flex-col w-full md:w-1/4 p-4 bg-gray-100 rounded-lg shadow-sm">
         <label className="block text-lg font-medium">Room Type</label>
         <select
-          value={roomType}
-          onChange={handleRoomTypeChange}
+          name="roomType"
+          value={filter?.roomType}
+          onChange={(e) => handleChangeFilter(e.target.name, e.target.value)}
           className="w-full mt-2 p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
-          <option value={"all"}>All Products</option>
+          <option value={"all"}>All Rooms</option>
           {categories &&
             categories.map((category: string) => (
               <option key={category} value={category}>
@@ -46,8 +81,12 @@ const RoomFilter = (props: Props) => {
       <div className="flex flex-col w-full md:w-1/4 p-4 bg-gray-100 rounded-lg shadow-sm">
         <label className="block text-lg font-medium">Check-in Date</label>
         <DatePicker
-          selected={checkInDate}
-          onChange={handleCheckInChange}
+          isClearable
+          dateFormat={"dd/MM/YYYY"}
+          locale={"tr"}
+          name="checkInDate"
+          selected={filter.checkInDate}
+          onChange={(date) => handleChangeFilter("checkInDate", date)}
           customInput={<CustomInput />}
         />
       </div>
@@ -55,14 +94,21 @@ const RoomFilter = (props: Props) => {
       <div className="flex flex-col w-full md:w-1/4 p-4 bg-gray-100 rounded-lg shadow-sm">
         <label className="block text-lg font-medium">Check-out Date</label>
         <DatePicker
-          selected={checkOutDate}
-          onChange={handleCheckOutChange}
+          isClearable
+          dateFormat={"dd/MM/YYYY"}
+          locale={"tr"}
+          name="checkOutDate"
+          selected={filter.checkOutDate}
+          onChange={(date) => handleChangeFilter("checkOutDate", date)}
           customInput={<CustomInput />}
         />
       </div>
 
       <div className="flex justify-center items-center w-full md:w-1/4">
-        <button className="bg-blue-600 text-white px-8 py-3 rounded-full hover:bg-blue-500 transition duration-300 w-full md:w-auto">
+        <button
+          onClick={handleSearch}
+          className="bg-blue-600 text-white px-8 py-3 rounded-full hover:bg-blue-500 transition duration-300 w-full md:w-auto"
+        >
           Apply Filters
         </button>
       </div>

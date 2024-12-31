@@ -87,7 +87,7 @@ const routes: RouteObject[] = [
         element: <AdminLayout />,
         children: [
           { path: "home", element: <AdminHome /> },
-          { path: "board", element: <AdminBoard /> },
+          { path: "profile", element: <AdminBoard /> },
           { path: "rooms", element: <AdminRooms /> },
           { path: "find-booking", element: <AdminFindBooking /> },
         ],

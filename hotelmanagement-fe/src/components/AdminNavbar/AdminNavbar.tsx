@@ -21,7 +21,7 @@ const AdminNavbar = () => {
             className="w-12 h-12 object-cover rounded-full"
           />
           <Link
-            to="/main/home"
+            to="/admin/home"
             className="text-2xl font-bold hover:text-blue-300 transition duration-300"
           >
             Hotel Management
@@ -30,32 +30,36 @@ const AdminNavbar = () => {
         <ul className="flex space-x-6">
           <li>
             <Link
-              to="/main/home"
-              className={`px-3 py-2 rounded ${getActiveClass("/main/home")}`}
+              to="/admin/home"
+              className={`px-3 py-2 rounded ${getActiveClass("/admin/home")}`}
             >
               Home
             </Link>
           </li>
           <li>
             <Link
-              to="/main/rooms"
-              className={`px-3 py-2 rounded ${getActiveClass("/main/rooms")}`}
+              to="/admin/rooms"
+              className={`px-3 py-2 rounded ${getActiveClass("/admin/rooms")}`}
             >
               Rooms
             </Link>
           </li>
           <li>
             <Link
-              to="/main/booking"
-              className={`px-3 py-2 rounded ${getActiveClass("/main/booking")}`}
+              to="/admin/find-booking"
+              className={`px-3 py-2 rounded ${getActiveClass(
+                "/admin/find-booking"
+              )}`}
             >
               Find my Booking
             </Link>
           </li>
           <li>
             <Link
-              to="/main/profile"
-              className={`px-3 py-2 rounded ${getActiveClass("/main/profile")}`}
+              to="/admin/profile"
+              className={`px-3 py-2 rounded ${getActiveClass(
+                "/admin/profile"
+              )}`}
             >
               Admin
             </Link>

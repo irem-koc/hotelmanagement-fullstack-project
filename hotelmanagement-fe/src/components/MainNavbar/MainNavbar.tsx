@@ -9,7 +9,7 @@ const MainNavbar = () => {
       ? "bg-white text-blue-600"
       : "hover:text-white hover:border-b-2 hover:border-gray-300 transition duration-300 ";
   const handleLogout = () => {
-    localStorage.removeItem("user");
+    // localStorage.removeItem("user");
   };
   return (
     <nav className="bg-blue-800 text-white shadow-lg">

@@ -31,13 +31,13 @@ public class BookingController {
 
     @GetMapping("/all")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<Response> getAllUsers() {
+    public ResponseEntity<Response> getAllBookings() {
         Response response = bookingService.getAllBookings();
         return ResponseEntity.status(response.getStatusCode()).body(response);
     }
 
     @GetMapping("/get-by-confirmation-code/{code}")
-    public ResponseEntity<Response> getAllUsers(@PathVariable String code) {
+    public ResponseEntity<Response> getBookingByConfCode(@PathVariable String code) {
         Response response = bookingService.findBookingByConfirmatonCode(code);
         return ResponseEntity.status(response.getStatusCode()).body(response);
     }

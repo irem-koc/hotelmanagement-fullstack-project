@@ -14,3 +14,6 @@ export interface ChangePasswordRequest {
   newPassword: string;
   newPasswordCheck: string;
 }
+export interface LogoutRequest {
+  token: string;
+}

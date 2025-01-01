@@ -8,6 +8,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.iremkoc.hotel.hotelmanagement.dto.ChangePasswordRequest;
 import com.iremkoc.hotel.hotelmanagement.dto.LoginRequest;
 import com.iremkoc.hotel.hotelmanagement.dto.Response;
 import com.iremkoc.hotel.hotelmanagement.dto.UserDto;
@@ -179,6 +180,37 @@ public class UserService implements IUserService {
         } catch (Exception e) {
             response.setStatusCode(500);
             response.setMessage("Error getting user info" + e.getMessage());
+        }
+        return response;
+    }
+
+    @Override
+    public Response changePassword(ChangePasswordRequest changePasswordRequest) {
+        Response response = new Response();
+        try {
+            User user = userRepository.findByEmail(changePasswordRequest.getEmail())
+                    .orElseThrow(
+                            () -> new OurException("User not found with email " + changePasswordRequest.getEmail()));
+
+            if (!passwordEncoder.matches(changePasswordRequest.getCurrentPassword(), user.getPassword())) {
+                throw new OurException("Current password is incorrect");
+            }
+
+            if (!changePasswordRequest.getNewPassword().equals(changePasswordRequest.getNewPasswordCheck())) {
+                throw new OurException("New password and confirmation password do not match");
+            }
+
+            user.setPassword(passwordEncoder.encode(changePasswordRequest.getNewPassword()));
+            userRepository.save(user);
+
+            response.setStatusCode(200);
+            response.setMessage("Password successfully changed");
+        } catch (OurException e) {
+            response.setStatusCode(400);
+            response.setMessage(e.getMessage());
+        } catch (Exception e) {
+            response.setStatusCode(500);
+            response.setMessage("Error occurred while changing the password: " + e.getMessage());
         }
         return response;
     }

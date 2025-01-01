@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.iremkoc.hotel.hotelmanagement.dto.ChangePasswordRequest;
 import com.iremkoc.hotel.hotelmanagement.dto.LoginRequest;
 import com.iremkoc.hotel.hotelmanagement.dto.Response;
 import com.iremkoc.hotel.hotelmanagement.entity.User;
@@ -27,6 +28,12 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<Response> login(@RequestBody LoginRequest loginRequest) {
         Response response = userService.login(loginRequest);
+        return ResponseEntity.status(response.getStatusCode()).body(response);
+    }
+
+    @PostMapping("/change-password")
+    public ResponseEntity<Response> changePassword(@RequestBody ChangePasswordRequest changePasswordRequest) {
+        Response response = userService.changePassword(changePasswordRequest);
         return ResponseEntity.status(response.getStatusCode()).body(response);
     }
 }

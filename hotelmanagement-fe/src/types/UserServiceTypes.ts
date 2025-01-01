@@ -8,3 +8,9 @@ export interface RegisterRequest {
   phonenUmber: string;
   password: string;
 }
+export interface ChangePasswordRequest {
+  email: string;
+  currentPassword: string;
+  newPassword: string;
+  newPasswordCheck: string;
+}

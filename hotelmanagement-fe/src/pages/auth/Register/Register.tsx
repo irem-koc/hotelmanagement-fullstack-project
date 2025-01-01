@@ -64,7 +64,7 @@ const Register = () => {
                 htmlFor="name"
                 className="block text-sm font-medium text-gray-700"
               >
-                Ad Soyad
+                Ad Soyad <span className="text-red-500">*</span>
               </label>
               <input
                 type="text"
@@ -102,7 +102,7 @@ const Register = () => {
                 htmlFor="password"
                 className="block text-sm font-medium text-gray-700"
               >
-                Şifre
+                Şifre <span className="text-red-500">*</span>
               </label>
               <input
                 type="password"

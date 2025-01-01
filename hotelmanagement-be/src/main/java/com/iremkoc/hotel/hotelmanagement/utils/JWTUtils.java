@@ -3,6 +3,8 @@ package com.iremkoc.hotel.hotelmanagement.utils;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.function.Function;
 
 import javax.crypto.SecretKey;
@@ -20,7 +22,6 @@ public class JWTUtils {
     private final SecretKey Key;
 
     public JWTUtils() {
-        // TODO: make it readable from env file
         String secretString = "ksxBgo8Lfljf8Q4dhBYWjfeSYTRiLck16yk8JZh74g8=";
         if (secretString == null || secretString.isEmpty()) {
             throw new IllegalStateException("Çevresel değişken 'TOKEN_KEY' bulunamadı.");
@@ -55,4 +56,18 @@ public class JWTUtils {
     private boolean isTokenExpired(String token) {
         return extractClaims(token, Claims::getExpiration).before(new Date());
     }
+
+    private final Set<String> blacklistedTokens = new HashSet<>();
+
+    public void invalidateToken(String token) {
+        blacklistedTokens.add(token);
+    }
+
+    public boolean isTokenValid(String token, UserDetails userDetails) {
+        final String username = extractUserName(token);
+        return username.equals(userDetails.getUsername())
+                && !isTokenExpired(token)
+                && !blacklistedTokens.contains(token);
+    }
+
 }

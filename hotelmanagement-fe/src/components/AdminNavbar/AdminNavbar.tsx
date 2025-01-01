@@ -1,15 +1,25 @@
-import { Link, useLocation } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import { getFromLocalStorage } from "../../hooks/localStorage";
+import { useLogoutUserMutation } from "../../services/users";
 
 const AdminNavbar = () => {
-  const username = getFromLocalStorage("user").username;
+  const [logout] = useLogoutUserMutation();
+  const navigate = useNavigate();
   const location = useLocation();
+
+  const username = getFromLocalStorage("user")?.username;
+  const token = getFromLocalStorage("user")?.token;
+
   const getActiveClass = (path: string) =>
     location.pathname === path
       ? "bg-white text-blue-600"
       : "hover:text-white hover:border-b-2 hover:border-gray-300 transition duration-300 ";
   const handleLogout = () => {
-    // localStorage.removeItem("user");
+    logout({ token })
+      .unwrap()
+      .then((result) => {
+        result.statusCode === 200 && navigate("/auth/login");
+      });
   };
   return (
     <nav className="bg-blue-800 text-white shadow-lg">
@@ -67,7 +77,7 @@ const AdminNavbar = () => {
           <li>
             <Link
               onClick={handleLogout}
-              to="/auth/login"
+              to=""
               className="px-3 py-2 rounded hover:text-white transition duration-300"
             >
               Logout

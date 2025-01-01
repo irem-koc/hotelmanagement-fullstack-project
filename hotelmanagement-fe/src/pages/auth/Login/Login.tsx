@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { saveUserLoggedIn } from "../../../features/users/userSlice";
 import { useAppDispatch } from "../../../hooks/hook";
 import {
@@ -63,7 +63,7 @@ const Login = () => {
                 htmlFor="email"
                 className="block text-sm font-medium text-gray-700"
               >
-                E-posta
+                E-posta <span className="text-red-500">*</span>
               </label>
               <input
                 value={user.email}
@@ -81,7 +81,7 @@ const Login = () => {
                 htmlFor="password"
                 className="block text-sm font-medium text-gray-700"
               >
-                Şifre
+                Şifre <span className="text-red-500">*</span>
               </label>
               <input
                 value={user.password}
@@ -113,12 +113,12 @@ const Login = () => {
               </div>
 
               <div className="text-sm">
-                <a
-                  href="#"
+                <Link
+                  to="/auth/change-password"
                   className="font-medium text-indigo-600 hover:text-indigo-500"
                 >
                   Şifrenizi mi unuttunuz?
-                </a>
+                </Link>
               </div>
             </div>
 

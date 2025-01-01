@@ -8,9 +8,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.iremkoc.hotel.hotelmanagement.dto.LogoutRequest;
 import com.iremkoc.hotel.hotelmanagement.dto.Response;
 import com.iremkoc.hotel.hotelmanagement.service.interfaces.IUserService;
 
@@ -50,6 +53,13 @@ public class UserController {
     @GetMapping("/get-user-bookings/{userId}")
     public ResponseEntity<Response> getUserBookingHistory(@PathVariable("userId") String userId) {
         Response response = userService.getUserBookingHistory(userId);
+        return ResponseEntity.status(response.getStatusCode()).body(response);
+    }
+
+    @PostMapping("/logout")
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
+    public ResponseEntity<Response> logout(@RequestBody LogoutRequest logoutRequest) {
+        Response response = userService.logout(logoutRequest);
         return ResponseEntity.status(response.getStatusCode()).body(response);
     }
 }

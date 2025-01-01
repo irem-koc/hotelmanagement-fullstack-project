@@ -9,6 +9,7 @@ import AdminBoard from "../pages/admin/AdminBoard/AdminBoard";
 import AdminFindBooking from "../pages/admin/FindBooking/AdminFindBooking";
 import AdminHome from "../pages/admin/Home/AdminHome";
 import AdminRooms from "../pages/admin/Rooms/AdminRooms";
+import ChangePassword from "../pages/auth/ChangePassword/ChangePassword";
 import FindBooking from "../pages/auth/FindBooking/FindBooking";
 import AuthHome from "../pages/auth/Home/Home";
 import Login from "../pages/auth/Login/Login";
@@ -47,6 +48,7 @@ const routes: RouteObject[] = [
     children: [
       { path: "home", element: <AuthHome /> },
       { path: "login", element: <Login /> },
+      { path: "change-password", element: <ChangePassword /> },
       { path: "register", element: <Register /> },
       { path: "find-booking", element: <FindBooking /> },
       { path: "rooms", element: <Rooms /> },

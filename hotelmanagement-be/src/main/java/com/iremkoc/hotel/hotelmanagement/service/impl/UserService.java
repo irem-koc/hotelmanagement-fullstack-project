@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.iremkoc.hotel.hotelmanagement.dto.ChangePasswordRequest;
 import com.iremkoc.hotel.hotelmanagement.dto.LoginRequest;
+import com.iremkoc.hotel.hotelmanagement.dto.LogoutRequest;
 import com.iremkoc.hotel.hotelmanagement.dto.Response;
 import com.iremkoc.hotel.hotelmanagement.dto.UserDto;
 import com.iremkoc.hotel.hotelmanagement.entity.User;
@@ -211,6 +212,23 @@ public class UserService implements IUserService {
         } catch (Exception e) {
             response.setStatusCode(500);
             response.setMessage("Error occurred while changing the password: " + e.getMessage());
+        }
+        return response;
+    }
+
+    @Override
+    public Response logout(LogoutRequest logoutRequest) {
+        Response response = new Response();
+        try {
+            String token = logoutRequest.getToken();
+
+            jwtUtils.invalidateToken(token);
+
+            response.setStatusCode(200);
+            response.setMessage("Successfully logged out");
+        } catch (Exception e) {
+            response.setStatusCode(500);
+            response.setMessage("Error occurred during logout: " + e.getMessage());
         }
         return response;
     }

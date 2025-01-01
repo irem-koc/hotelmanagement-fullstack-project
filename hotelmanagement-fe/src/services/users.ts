@@ -2,6 +2,7 @@ import { apiWithTag } from "../api/emptySplitApi";
 import {
   ChangePasswordRequest,
   LoginRequest,
+  LogoutRequest,
   RegisterRequest,
 } from "../types/UserServiceTypes";
 
@@ -37,6 +38,18 @@ export const userApi = apiWithTag.injectEndpoints({
         };
       },
     }),
+    logoutUser: build.mutation<LogoutRequest, Partial<LogoutRequest>>({
+      query(body) {
+        return {
+          url: `users/logout`,
+          method: "POST",
+          body,
+          headers: {
+            Authorization: `Bearer ${body.token}`,
+          },
+        };
+      },
+    }),
   }),
 });
 
@@ -44,4 +57,5 @@ export const {
   useLoginUserMutation,
   useRegisterUserMutation,
   useChangePasswordMutation,
+  useLogoutUserMutation,
 } = userApi;

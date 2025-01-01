@@ -1,5 +1,9 @@
 import { apiWithTag } from "../api/emptySplitApi";
-import { LoginRequest, RegisterRequest } from "../types/UserServiceTypes";
+import {
+  ChangePasswordRequest,
+  LoginRequest,
+  RegisterRequest,
+} from "../types/UserServiceTypes";
 
 export const userApi = apiWithTag.injectEndpoints({
   endpoints: (build) => ({
@@ -21,7 +25,23 @@ export const userApi = apiWithTag.injectEndpoints({
         };
       },
     }),
+    changePassword: build.mutation<
+      ChangePasswordRequest,
+      Partial<ChangePasswordRequest>
+    >({
+      query(body) {
+        return {
+          url: `auth/change-password`,
+          method: "POST",
+          body,
+        };
+      },
+    }),
   }),
 });
 
-export const { useLoginUserMutation, useRegisterUserMutation } = userApi;
+export const {
+  useLoginUserMutation,
+  useRegisterUserMutation,
+  useChangePasswordMutation,
+} = userApi;

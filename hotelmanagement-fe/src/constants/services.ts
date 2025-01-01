@@ -18,7 +18,7 @@ export const services = [
     icon: "🅿️",
   },
   {
-    basltitleik: "WiFi",
+    title: "WiFi",
     description:
       "Tüm odalar ve genel alanlarda ücretsiz yüksek hızlı WiFi bağlantısıyla bağlı kalın.",
     icon: "📶",

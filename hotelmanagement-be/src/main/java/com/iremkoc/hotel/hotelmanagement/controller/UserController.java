@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.iremkoc.hotel.hotelmanagement.dto.EditUserProfileRequest;
 import com.iremkoc.hotel.hotelmanagement.dto.LogoutRequest;
 import com.iremkoc.hotel.hotelmanagement.dto.Response;
 import com.iremkoc.hotel.hotelmanagement.service.interfaces.IUserService;
@@ -60,6 +61,14 @@ public class UserController {
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
     public ResponseEntity<Response> logout(@RequestBody LogoutRequest logoutRequest) {
         Response response = userService.logout(logoutRequest);
+        return ResponseEntity.status(response.getStatusCode()).body(response);
+    }
+
+    @PostMapping("/user-edit/{userId}")
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
+    public ResponseEntity<Response> editUserProfile(@PathVariable("userId") Long userId,
+            @RequestBody EditUserProfileRequest editUserProfileRequest) {
+        Response response = userService.editUserProfile(userId, editUserProfileRequest);
         return ResponseEntity.status(response.getStatusCode()).body(response);
     }
 }

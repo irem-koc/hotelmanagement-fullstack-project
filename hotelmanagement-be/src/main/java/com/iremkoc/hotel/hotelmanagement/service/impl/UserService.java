@@ -9,6 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.iremkoc.hotel.hotelmanagement.dto.ChangePasswordRequest;
+import com.iremkoc.hotel.hotelmanagement.dto.EditUserProfileRequest;
 import com.iremkoc.hotel.hotelmanagement.dto.LoginRequest;
 import com.iremkoc.hotel.hotelmanagement.dto.LogoutRequest;
 import com.iremkoc.hotel.hotelmanagement.dto.Response;
@@ -231,4 +232,35 @@ public class UserService implements IUserService {
         return response;
     }
 
+    @Override
+    public Response editUserProfile(Long userId, EditUserProfileRequest request) {
+        Response response = new Response();
+        try {
+            User user = userRepository.findById(userId)
+                    .orElseThrow(() -> new OurException("User not found"));
+            if (request.getEmail() != null && !request.getEmail().isEmpty()) {
+                user.setEmail(request.getEmail());
+            }
+
+            if (request.getName() != null && !request.getName().isEmpty()) {
+                user.setName(request.getName());
+            }
+
+            if (request.getPhoneNumber() != null && !request.getPhoneNumber().isEmpty()) {
+                user.setPhoneNumber(request.getPhoneNumber());
+            }
+
+            if (request.getPassword() != null && !request.getPassword().isEmpty()) {
+                user.setPassword(request.getPassword());
+            }
+
+            userRepository.save(user);
+            response.setStatusCode(200);
+            response.setMessage("Successfully edited user!");
+        } catch (Exception e) {
+            response.setStatusCode(500);
+            response.setMessage("Error occurred during logout: " + e.getMessage());
+        }
+        return response;
+    }
 }

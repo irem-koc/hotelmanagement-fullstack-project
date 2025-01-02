@@ -9,18 +9,20 @@ export interface AddBokingRequest {
   userId: number;
   roomId: number;
 }
-export interface RegisterRequest {
-  email: string;
-  name: string;
-  phonenUmber: string;
-  password: string;
-}
-export interface ChangePasswordRequest {
-  email: string;
-  currentPassword: string;
-  newPassword: string;
-  newPasswordCheck: string;
-}
-export interface LogoutRequest {
-  token: string;
-}
+
+export type Booking = {
+  id: number;
+  checkInDate: string;
+  checkOutDate: string;
+  numOfAdults: number;
+  numOfChildren: number;
+  totalNumOfGuests: number;
+  bookingConfirmationCode: string;
+  room: {
+    id: number;
+    roomType: string;
+    roomPrice: number;
+    roomPhotoUrl: string;
+    roomDescription: string;
+  };
+};

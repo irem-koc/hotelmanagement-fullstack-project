@@ -1,3 +1,5 @@
+import { Booking } from "./BookingServiceTypes";
+
 export interface LoginRequest {
   email: string;
   password: string;
@@ -17,3 +19,11 @@ export interface ChangePasswordRequest {
 export interface LogoutRequest {
   token: string;
 }
+export type UserProfile = {
+  id: number;
+  email: string;
+  name: string;
+  phoneNumber: string;
+  role: string;
+  bookings: Booking[];
+};

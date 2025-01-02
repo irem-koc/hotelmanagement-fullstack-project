@@ -221,9 +221,7 @@ public class UserService implements IUserService {
         Response response = new Response();
         try {
             String token = logoutRequest.getToken();
-
             jwtUtils.invalidateToken(token);
-
             response.setStatusCode(200);
             response.setMessage("Successfully logged out");
         } catch (Exception e) {

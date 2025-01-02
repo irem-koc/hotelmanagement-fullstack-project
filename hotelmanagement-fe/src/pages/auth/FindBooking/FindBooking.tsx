@@ -1,9 +1,10 @@
 import { useState } from "react";
+import BookingDetailsUI from "../../../components/BookingDetailsUI/BookingDetailsUI";
 import { useLazyGetBookingByConfirmationCodeQuery } from "../../../hooks/bookings";
 
 const FindBooking = () => {
   const [bookingCode, setBookingCode] = useState("");
-  const [trigger, { data, isLoading }] =
+  const [trigger, { data, isSuccess }] =
     useLazyGetBookingByConfirmationCodeQuery();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -18,7 +19,7 @@ const FindBooking = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center space-y-4 p-6 bg-white rounded-lg shadow-lg max-w-md mx-auto mt-8">
+    <div className="flex flex-col items-center justify-center space-y-4 p-6 bg-white rounded-lg shadow-lg max-w-2xl mx-auto mt-8">
       <input
         value={bookingCode}
         onChange={handleChange}
@@ -32,8 +33,7 @@ const FindBooking = () => {
       >
         Ara
       </button>
-      {isLoading && <p>Loading...</p>}
-      {data && <pre>{JSON.stringify(data, null, 2)}</pre>}
+      {isSuccess && data && <BookingDetailsUI bookingData={data} />}
     </div>
   );
 };

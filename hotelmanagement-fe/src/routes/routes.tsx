@@ -15,9 +15,10 @@ import AuthHome from "../pages/auth/Home/Home";
 import Login from "../pages/auth/Login/Login";
 import Register from "../pages/auth/Register/Register";
 import Rooms from "../pages/auth/Rooms/Rooms";
-import Booking from "../pages/main/Booking/Booking";
+import FindBookingMain from "../pages/main/FindBookingMain/FindBookingMain";
 import MainHome from "../pages/main/Home/Home";
 import Profile from "../pages/main/Profile/Profile";
+import RoomDetail from "../pages/main/RoomDetail/RoomDetail";
 import MainRooms from "../pages/main/Rooms/Rooms";
 import AdminProtectedRoute from "./AdminProtectedRoute";
 
@@ -67,9 +68,10 @@ const routes: RouteObject[] = [
         element: <MainLayout />,
         children: [
           { path: "home", element: <MainHome /> },
-          { path: "booking", element: <Booking /> },
+          { path: "find-booking", element: <FindBookingMain /> },
           { path: "profile", element: <Profile /> },
           { path: "rooms", element: <MainRooms /> },
+          { path: "room-details-book/:roomId", element: <RoomDetail /> },
         ],
       },
     ],

@@ -1,6 +1,7 @@
 package com.iremkoc.hotel.hotelmanagement.service.interfaces;
 
 import com.iremkoc.hotel.hotelmanagement.dto.ChangePasswordRequest;
+import com.iremkoc.hotel.hotelmanagement.dto.EditUserProfileRequest;
 import com.iremkoc.hotel.hotelmanagement.dto.LoginRequest;
 import com.iremkoc.hotel.hotelmanagement.dto.LogoutRequest;
 import com.iremkoc.hotel.hotelmanagement.dto.Response;
@@ -24,5 +25,7 @@ public interface IUserService {
     Response getUserById(String userId);
 
     Response getMyInfo(String email);
+
+    Response editUserProfile(Long userId, EditUserProfileRequest editUserProfileRequest);
 
 }

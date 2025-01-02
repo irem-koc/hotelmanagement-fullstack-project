@@ -33,6 +33,7 @@ const Login = () => {
     e.preventDefault();
     let response = await loginUser(user).unwrap();
     const result = {
+      id: response.user.id,
       email: response.user.email,
       username: response.user.name,
       role: response.user.role,

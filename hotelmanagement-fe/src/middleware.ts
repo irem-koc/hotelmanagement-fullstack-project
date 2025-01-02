@@ -1,13 +1,8 @@
-import {
-  Middleware,
-  MiddlewareAPI,
-  isFulfilled,
-  isRejectedWithValue,
-} from "@reduxjs/toolkit";
+import { Middleware, isFulfilled, isRejectedWithValue } from "@reduxjs/toolkit";
 import { useToast } from "./hooks/useToast";
 
 export const rtkQueryNotificationLogger: Middleware =
-  (api: MiddlewareAPI) => (next) => (action) => {
+  () => (next) => (action) => {
     const { notifySuccess, notifyError } = useToast();
 
     if (isFulfilled(action)) {

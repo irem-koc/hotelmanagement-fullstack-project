@@ -1,6 +1,4 @@
-type Props = {};
-
-const AdminBoard = (props: Props) => {
+const AdminBoard = () => {
   return <div>AdminBoard</div>;
 };
 

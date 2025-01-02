@@ -1,6 +1,4 @@
-type Props = {};
-
-const AdminFindBooking = (props: Props) => {
+const AdminFindBooking = () => {
   return (
     <div className="flex flex-col items-center justify-center space-y-4 p-6 bg-white rounded-lg shadow-lg max-w-md mx-auto mt-8">
       <input

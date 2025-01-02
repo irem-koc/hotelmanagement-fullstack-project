@@ -15,8 +15,7 @@ type Props = {
 const RoomFilter = ({ handleData }: Props) => {
   const { data: categories } = useGetRoomTypesQuery();
 
-  const [trigger, { data, isLoading }] =
-    useLazyGetAvailableRoomsByDateAndTypeQuery();
+  const [trigger] = useLazyGetAvailableRoomsByDateAndTypeQuery();
 
   const [filter, setFilter] = useState({
     roomType: "all",

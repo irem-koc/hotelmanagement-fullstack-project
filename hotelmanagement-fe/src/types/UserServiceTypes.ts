@@ -2,12 +2,14 @@ import { Booking } from "./BookingServiceTypes";
 
 export interface LoginRequest {
   email: string;
+  statusCode: number;
   password: string;
 }
 export interface RegisterRequest {
   email: string;
   name: string;
   phonenUmber: string;
+  statusCode: number;
   password: string;
 }
 export interface ChangePasswordRequest {
@@ -15,9 +17,11 @@ export interface ChangePasswordRequest {
   currentPassword: string;
   newPassword: string;
   newPasswordCheck: string;
+  statusCode: number;
 }
 export interface LogoutRequest {
   token: string;
+  statusCode: number;
 }
 export type UserProfile = {
   id: number;

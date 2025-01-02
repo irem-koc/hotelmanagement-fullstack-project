@@ -21,10 +21,14 @@ export const roomsApi = apiWithTag.injectEndpoints({
         };
       },
     }),
+    getRoomDetail: build.query({
+      query: (id) => ({ url: `rooms/room-by-id/${id}` }),
+    }),
   }),
 });
 export const {
   useGetRoomTypesQuery,
   useGetRoomsQuery,
   useLazyGetAvailableRoomsByDateAndTypeQuery,
+  useGetRoomDetailQuery,
 } = roomsApi;

@@ -21,7 +21,7 @@ const RoomCard = ({ id, roomType, roomPrice, roomPhotoUrl, where }) => {
           onClick={() => navigate(where)}
           className="mt-6 w-full bg-blue-500 text-white py-3 px-6 rounded-md font-medium hover:bg-blue-600 transition-colors duration-300"
         >
-          View/Book Now
+          {where?.includes("admin") ? "Edit Room" : "View/Book Now"}
         </button>
       </div>
     </div>

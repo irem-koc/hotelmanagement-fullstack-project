@@ -5,9 +5,21 @@ export const bookingsApi = apiWithTag.injectEndpoints({
     getBookingByConfirmationCode: build.query({
       query: (code) => ({ url: `bookings/get-by-confirmation-code/${code}` }),
     }),
+    getAllBookings: build.query({
+      query(token) {
+        return {
+          url: `bookings/all`,
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        };
+      },
+    }),
   }),
 });
 export const {
   useGetBookingByConfirmationCodeQuery,
   useLazyGetBookingByConfirmationCodeQuery,
+  useGetAllBookingsQuery,
 } = bookingsApi;

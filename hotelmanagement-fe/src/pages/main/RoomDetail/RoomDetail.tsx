@@ -1,4 +1,4 @@
-import { format } from "date-fns";
+import { differenceInDays, format } from "date-fns";
 import { useState } from "react";
 import DatePicker from "react-datepicker";
 import { useNavigate, useParams } from "react-router";
@@ -6,6 +6,7 @@ import CustomInput from "../../../components/CustomInput/CustomInput";
 import { getFromLocalStorage } from "../../../hooks/localStorage";
 import { useGetRoomDetailQuery } from "../../../hooks/rooms";
 import { useAddBookingMutation } from "../../../services/bookings";
+
 const RoomDetail = () => {
   const params = useParams();
   const navigate = useNavigate();
@@ -21,12 +22,22 @@ const RoomDetail = () => {
     checkInDate: null,
     checkOutDate: null,
   });
+
   const handleChangeFilter = (name: string, value: any) => {
     setFilter((prevState) => ({
       ...prevState,
       [name]: value,
     }));
   };
+
+  const calculateTotalPrice = () => {
+    if (filter.checkInDate && filter.checkOutDate) {
+      const nights = differenceInDays(filter.checkOutDate, filter.checkInDate);
+      return nights > 0 ? nights * data.room.roomPrice : 0;
+    }
+    return 0;
+  };
+
   if (!data)
     return <div className="text-center text-gray-500 mt-10">Loading...</div>;
 
@@ -39,6 +50,7 @@ const RoomDetail = () => {
   const closeModal = () => {
     setModalOpen(false);
   };
+
   const handleAddBooking = async () => {
     try {
       const formattedFilter = {
@@ -79,23 +91,36 @@ const RoomDetail = () => {
       />
       <h1 className="text-2xl font-bold mt-4">{roomType} Room</h1>
       <p className="text-gray-600 mt-2">{roomDescription}</p>
-      <p className="text-xl font-semibold text-gray-800 mt-4">
-        Price: <span className="text-green-500">${roomPrice?.toFixed(2)}</span>
-      </p>
-      <div className="flex justify-center gap-4 mt-6">
-        <button
-          onClick={() => navigate(-1)}
-          className="bg-gray-300 text-gray-700 py-2 px-4 rounded-md hover:bg-gray-400 transition-all"
-        >
-          Go Back
-        </button>
-        <button
-          onClick={handleBookNow}
-          className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition-all"
-        >
-          Book Now
-        </button>
-      </div>
+      {!confirmationCode && (
+        <p className="text-xl font-semibold text-gray-800 mt-4">
+          Price:{" "}
+          <span className="text-green-500">${roomPrice?.toFixed(2)}</span>
+        </p>
+      )}
+      {confirmationCode && (
+        <p className="text-xl font-semibold text-gray-800 mt-4">
+          Total Price:{" "}
+          <span className="text-green-500 font-bold">
+            ${calculateTotalPrice()?.toFixed(2)}
+          </span>
+        </p>
+      )}
+      {!confirmationCode && (
+        <div className="flex justify-center gap-4 mt-6">
+          <button
+            onClick={() => navigate(-1)}
+            className="bg-gray-300 text-gray-700 py-2 px-4 rounded-md hover:bg-gray-400 transition-all"
+          >
+            Go Back
+          </button>
+          <button
+            onClick={handleBookNow}
+            className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition-all"
+          >
+            Book Now
+          </button>
+        </div>
+      )}
 
       {isModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">

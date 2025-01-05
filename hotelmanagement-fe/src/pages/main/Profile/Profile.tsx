@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 import { getFromLocalStorage } from "../../../hooks/localStorage";
 import { useGetUserProfileHistoryQuery } from "../../../hooks/users";
-import { useEditUserProfileMutation } from "../../../services/users";
+import {
+  useDeleteUserProfileMutation,
+  useEditUserProfileMutation,
+} from "../../../services/users";
 import { UserProfile } from "../../../types/UserServiceTypes";
 
 const Profile = () => {
@@ -12,7 +16,8 @@ const Profile = () => {
   const { data, isLoading, isSuccess, refetch } =
     useGetUserProfileHistoryQuery(token);
   const [editUserMutation] = useEditUserProfileMutation();
-
+  const [deleteUserMutation] = useDeleteUserProfileMutation();
+  const navigate = useNavigate();
   const user: UserProfile | undefined = data?.user;
 
   const [userProfile, setUserProfile] = useState({
@@ -60,10 +65,20 @@ const Profile = () => {
       });
   };
 
-  const handleBookNow = () => {
+  const handleEditNow = () => {
     setModalOpen(true);
   };
-
+  const handleDeleteAccount = () => {
+    deleteUserMutation({ id: id.toString(), token })
+      .unwrap()
+      .then((res) => {
+        if (res.statusCode === 200) {
+          navigate("/auth/login");
+          localStorage.removeItem("user");
+          localStorage.removeItem("isRemmeberMe");
+        }
+      });
+  };
   const closeModal = () => {
     setModalOpen(false);
     setUserProfile({
@@ -96,12 +111,15 @@ const Profile = () => {
           </p>
           <div className="flex space-x-4">
             <button
-              onClick={handleBookNow}
+              onClick={handleEditNow}
               className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
             >
               Düzenle
             </button>
-            <button className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600">
+            <button
+              onClick={handleDeleteAccount}
+              className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600"
+            >
               Hesabı Sil
             </button>
           </div>

@@ -56,7 +56,9 @@ const MainNavbar = () => {
           <li>
             <Link
               to="/main/find-booking"
-              className={`px-3 py-2 rounded ${getActiveClass("/main/booking")}`}
+              className={`px-3 py-2 rounded ${getActiveClass(
+                "/main/find-booking"
+              )}`}
             >
               Find my Booking
             </Link>

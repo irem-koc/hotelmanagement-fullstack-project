@@ -7,6 +7,7 @@ import ProtectedRoute from "./protectedRoute";
 import { getFromLocalStorage } from "../hooks/localStorage";
 import AddRoom from "../pages/admin/AddRoom/AddRoom";
 import AdminBoard from "../pages/admin/AdminBoard/AdminBoard";
+import EditBooking from "../pages/admin/EditBooking/EditBooking";
 import EditRoom from "../pages/admin/EditRoom/EditRoom";
 import AdminFindBooking from "../pages/admin/FindBooking/AdminFindBooking";
 import AdminHome from "../pages/admin/Home/AdminHome";
@@ -100,6 +101,10 @@ const routes: RouteObject[] = [
           { path: "find-booking", element: <AdminFindBooking /> },
           { path: "edit-room", element: <EditRoom /> },
           { path: "add-room", element: <AddRoom /> },
+          {
+            path: "edit-booking/:bookingConfirmationCode",
+            element: <EditBooking />,
+          },
           { path: "manage-rooms", element: <ManageRooms /> },
           { path: "manage-bookings", element: <ManageBookings /> },
         ],

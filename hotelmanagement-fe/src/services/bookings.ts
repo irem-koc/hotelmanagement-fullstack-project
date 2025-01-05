@@ -1,5 +1,8 @@
 import { apiWithTag } from "../api/emptySplitApi";
-import { AddBokingRequest } from "../types/BookingServiceTypes";
+import {
+  AddBokingRequest,
+  CancelBokingRequest,
+} from "../types/BookingServiceTypes";
 
 export const bookingApi = apiWithTag.injectEndpoints({
   endpoints: (build) => ({
@@ -15,7 +18,21 @@ export const bookingApi = apiWithTag.injectEndpoints({
         };
       },
     }),
+    cancelBooking: build.mutation<
+      CancelBokingRequest,
+      Partial<CancelBokingRequest>
+    >({
+      query({ id, token }) {
+        return {
+          url: `/bookings/delete-booking/${id}`,
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        };
+      },
+    }),
   }),
 });
 
-export const { useAddBookingMutation } = bookingApi;
+export const { useAddBookingMutation, useCancelBookingMutation } = bookingApi;

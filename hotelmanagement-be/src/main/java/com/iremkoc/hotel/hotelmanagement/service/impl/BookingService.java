@@ -111,7 +111,7 @@ public class BookingService implements IBookingService {
                     .orElseThrow(() -> new OurException("there is no booking whit this id " + bookingId));
             bookingRepository.deleteById(bookingId);
             response.setStatusCode(200);
-            response.setMessage("Successfully canaceled booking");
+            response.setMessage("Successfully cancelled booking");
         } catch (Exception e) {
             response.setStatusCode(500);
             response.setMessage("Error occured during canceling booking" + e.getMessage());

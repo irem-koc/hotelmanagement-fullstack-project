@@ -39,3 +39,7 @@ export type UserEditRequest = {
   token: string;
   password: string;
 };
+export type UserProfileDeleteRequest = {
+  id: string;
+  token: string;
+};

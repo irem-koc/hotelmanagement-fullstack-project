@@ -21,7 +21,7 @@ const ManageBookings = () => {
     setBookingCode(inputValue);
     if (inputValue.length > 0) {
       setBookings((prev) => {
-        return prev.filter((item) =>
+        return allData.bookingList?.filter((item) =>
           item.bookingConfirmationCode
             .toLowerCase()
             .includes(inputValue.toLowerCase())

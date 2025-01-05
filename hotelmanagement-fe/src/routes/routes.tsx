@@ -5,9 +5,13 @@ import MainLayout from "../layouts/MainLayout";
 import ProtectedRoute from "./protectedRoute";
 
 import { getFromLocalStorage } from "../hooks/localStorage";
+import AddRoom from "../pages/admin/AddRoom/AddRoom";
 import AdminBoard from "../pages/admin/AdminBoard/AdminBoard";
+import EditRoom from "../pages/admin/EditRoom/EditRoom";
 import AdminFindBooking from "../pages/admin/FindBooking/AdminFindBooking";
 import AdminHome from "../pages/admin/Home/AdminHome";
+import ManageBookings from "../pages/admin/ManageBookings/ManageBookings";
+import ManageRooms from "../pages/admin/ManageRooms/ManageRooms";
 import AdminRooms from "../pages/admin/Rooms/AdminRooms";
 import ChangePassword from "../pages/auth/ChangePassword/ChangePassword";
 import FindBooking from "../pages/auth/FindBooking/FindBooking";
@@ -94,6 +98,10 @@ const routes: RouteObject[] = [
           { path: "profile", element: <AdminBoard /> },
           { path: "rooms", element: <AdminRooms /> },
           { path: "find-booking", element: <AdminFindBooking /> },
+          { path: "edit-room", element: <EditRoom /> },
+          { path: "add-room", element: <AddRoom /> },
+          { path: "manage-rooms", element: <ManageRooms /> },
+          { path: "manage-bookings", element: <ManageBookings /> },
         ],
       },
     ],

@@ -75,7 +75,7 @@ const Profile = () => {
         if (res.statusCode === 200) {
           navigate("/auth/login");
           localStorage.removeItem("user");
-          localStorage.removeItem("isRemmeberMe");
+          localStorage.removeItem("isRememberMe");
         }
       });
   };

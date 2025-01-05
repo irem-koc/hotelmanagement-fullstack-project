@@ -21,5 +21,6 @@ export const bookingsApi = apiWithTag.injectEndpoints({
 export const {
   useGetBookingByConfirmationCodeQuery,
   useLazyGetBookingByConfirmationCodeQuery,
+  useLazyGetAllBookingsQuery,
   useGetAllBookingsQuery,
 } = bookingsApi;

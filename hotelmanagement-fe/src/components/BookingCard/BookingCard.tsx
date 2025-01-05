@@ -1,4 +1,7 @@
+import { useNavigate } from "react-router";
+
 const BookingCard = ({ bookingData }) => {
+  const navigate = useNavigate();
   const {
     id,
     bookingConfirmationCode,
@@ -6,27 +9,37 @@ const BookingCard = ({ bookingData }) => {
     checkOutDate,
     totalNumOfGuests,
   } = bookingData;
-  console.log(bookingData, "bookingDatabookingData");
 
   if (!bookingData) return null;
 
   return (
-    <div className="p-6 bg-white rounded-lg shadow-md w-full mt-8">
-      <div className="mb-4">
+    <div className="p-6 bg-white rounded-lg shadow-lg w-full space-y-4">
+      <div className="space-y-2">
         <p>
-          <strong>Confirmation Code:</strong> {bookingConfirmationCode}
+          <strong className="font-semibold">Confirmation Code:</strong>{" "}
+          {bookingConfirmationCode}
         </p>
         <p>
-          <strong>Check-in Date:</strong> {checkInDate}
+          <strong className="font-semibold">Check-in Date:</strong>{" "}
+          {checkInDate}
         </p>
         <p>
-          <strong>Check-out Date:</strong> {checkOutDate}
+          <strong className="font-semibold">Check-out Date:</strong>{" "}
+          {checkOutDate}
         </p>
         <p>
-          <strong>Number of Guests:</strong> {totalNumOfGuests}
+          <strong className="font-semibold">Number of Guests:</strong>{" "}
+          {totalNumOfGuests}
         </p>
       </div>
-      <button onClick={() => console.log("id -> ")}>Manage Booking</button>
+      <button
+        onClick={() =>
+          navigate(`/admin/edit-booking/${bookingConfirmationCode}`)
+        }
+        className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition duration-300"
+      >
+        Manage Booking
+      </button>
     </div>
   );
 };

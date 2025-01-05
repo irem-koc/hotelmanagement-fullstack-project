@@ -31,3 +31,11 @@ export type UserProfile = {
   role: string;
   bookings: Booking[];
 };
+export type UserEditRequest = {
+  id: number;
+  email: string;
+  name: string;
+  phoneNumber: string;
+  token: string;
+  password: string;
+};

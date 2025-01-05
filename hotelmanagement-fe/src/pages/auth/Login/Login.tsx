@@ -31,7 +31,10 @@ const Login = () => {
 
   const handleLogIn = async (e: any) => {
     e.preventDefault();
-    let response = await loginUser(user).unwrap();
+    let response = await loginUser({
+      email: user.email,
+      password: user.password,
+    }).unwrap();
     const result = {
       id: response.user.id,
       email: response.user.email,

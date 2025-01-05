@@ -4,6 +4,7 @@ import {
   LoginRequest,
   LogoutRequest,
   RegisterRequest,
+  UserEditRequest,
 } from "../types/UserServiceTypes";
 
 export const userApi = apiWithTag.injectEndpoints({
@@ -50,6 +51,18 @@ export const userApi = apiWithTag.injectEndpoints({
         };
       },
     }),
+    editUserProfile: build.mutation<UserEditRequest, Partial<UserEditRequest>>({
+      query(body) {
+        return {
+          url: `users/user-edit/${body.id}`,
+          method: "POST",
+          body,
+          headers: {
+            Authorization: `Bearer ${body.token}`,
+          },
+        };
+      },
+    }),
   }),
 });
 
@@ -58,4 +71,5 @@ export const {
   useRegisterUserMutation,
   useChangePasswordMutation,
   useLogoutUserMutation,
+  useEditUserProfileMutation,
 } = userApi;

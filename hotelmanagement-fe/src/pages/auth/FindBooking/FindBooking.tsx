@@ -19,21 +19,28 @@ const FindBooking = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center space-y-4 p-6 bg-white rounded-lg shadow-lg max-w-2xl mx-auto mt-8">
-      <input
-        value={bookingCode}
-        onChange={handleChange}
-        type="text"
-        placeholder="Search for booking"
-        className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-      />
-      <button
-        onClick={handleSearch}
-        className="w-full bg-blue-600 text-white px-6 py-3 rounded-full hover:bg-blue-500 transition duration-300"
-      >
-        Ara
-      </button>
-      {isSuccess && data && <BookingDetailsUI bookingData={data} />}
+    <div className="flex flex-col items-center justify-start min-h-screen bg-gray-100 p-6 space-y-6">
+      <div className="bg-white shadow-lg rounded-lg p-6 w-full max-w-2xl">
+        <input
+          value={bookingCode}
+          onChange={handleChange}
+          type="text"
+          placeholder="Search for booking"
+          className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-sm"
+        />
+        <button
+          onClick={handleSearch}
+          className="mt-4 w-full bg-gradient-to-r from-blue-500 to-blue-700 text-white px-6 py-3 rounded-md hover:from-blue-600 hover:to-blue-800 transition duration-300 shadow-md"
+        >
+          Ara
+        </button>
+      </div>
+
+      {isSuccess && data && (
+        <div className="bg-white shadow-lg rounded-lg p-6 w-full max-w-2xl space-y-4">
+          <BookingDetailsUI bookingData={data} />
+        </div>
+      )}
     </div>
   );
 };

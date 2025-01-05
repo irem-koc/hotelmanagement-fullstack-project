@@ -26,3 +26,7 @@ export type Booking = {
     roomDescription: string;
   };
 };
+export type CancelBokingRequest = {
+  id: number;
+  token: string;
+};

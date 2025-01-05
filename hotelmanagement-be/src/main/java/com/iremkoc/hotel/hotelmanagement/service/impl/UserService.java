@@ -134,10 +134,11 @@ public class UserService implements IUserService {
             User user = userRepository.findById(Long.valueOf(userId))
                     .orElseThrow(() -> new OurException("User not found with id " + userId));
             userRepository.deleteById(Long.valueOf(userId));
+            userRepository.delete(user);
             response.setStatusCode(200);
             response.setMessage("Successfully deleted user with id " + userId);
         } catch (OurException e) {
-            response.setStatusCode(500);
+            response.setStatusCode(400);
             response.setMessage("Error deleting user" + e.getMessage());
         } catch (Exception e) {
             response.setStatusCode(500);

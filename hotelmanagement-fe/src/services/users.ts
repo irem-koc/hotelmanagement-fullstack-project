@@ -5,6 +5,7 @@ import {
   LogoutRequest,
   RegisterRequest,
   UserEditRequest,
+  UserProfileDeleteRequest,
 } from "../types/UserServiceTypes";
 
 export const userApi = apiWithTag.injectEndpoints({
@@ -63,6 +64,20 @@ export const userApi = apiWithTag.injectEndpoints({
         };
       },
     }),
+    deleteUserProfile: build.mutation<
+      UserProfileDeleteRequest,
+      Partial<UserProfileDeleteRequest>
+    >({
+      query({ id, token }) {
+        return {
+          url: `users/delete/${id}`,
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        };
+      },
+    }),
   }),
 });
 
@@ -72,4 +87,5 @@ export const {
   useChangePasswordMutation,
   useLogoutUserMutation,
   useEditUserProfileMutation,
+  useDeleteUserProfileMutation,
 } = userApi;

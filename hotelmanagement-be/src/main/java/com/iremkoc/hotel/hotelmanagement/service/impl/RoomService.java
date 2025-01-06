@@ -1,6 +1,5 @@
 package com.iremkoc.hotel.hotelmanagement.service.impl;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -8,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import com.iremkoc.hotel.hotelmanagement.dto.AddRoomRequest;
 import com.iremkoc.hotel.hotelmanagement.dto.EditRoomRequest;
 import com.iremkoc.hotel.hotelmanagement.dto.Response;
 import com.iremkoc.hotel.hotelmanagement.dto.RoomDto;
@@ -27,15 +27,15 @@ public class RoomService implements IRoomService {
     private AwsS3Service awsS3Service;
 
     @Override
-    public Response addNewRoom(String photo, String roomType, BigDecimal roomPrice, String roomDescription) {
+    public Response addNewRoom(AddRoomRequest addRoomRequest) {
         Response response = new Response();
         try {
             // String imageUrl = awsS3Service.saveImagetoS3(photo);
             Room room = new Room();
-            room.setRoomDescription(roomDescription);
-            room.setRoomPhotoUrl(photo);
-            room.setRoomPrice(roomPrice);
-            room.setRoomType(roomType);
+            room.setRoomDescription(addRoomRequest.getRoomDescription());
+            room.setRoomPhotoUrl(addRoomRequest.getPhoto());
+            room.setRoomPrice(addRoomRequest.getRoomPrice());
+            room.setRoomType(addRoomRequest.getRoomType());
             Room savedRoom = roomRepository.save(room);
             RoomDto roomDto = Utils.mapRoomEntityToRoomDto(savedRoom);
             response.setStatusCode(200);

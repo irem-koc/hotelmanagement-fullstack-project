@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 import Container from "../../../components/Container/Container";
 import RoomCard from "../../../components/RoomCard/RoomCard";
 import { useGetRoomTypesQuery, useGetRoomsQuery } from "../../../hooks/rooms";
@@ -7,7 +8,7 @@ import { Room } from "../../../types/RoomServiceTypes";
 const ManageRooms = () => {
   const { data: categories } = useGetRoomTypesQuery();
   const { data: rooms, isSuccess } = useGetRoomsQuery();
-
+  const navigate = useNavigate();
   const [roomsData, setRoomsData] = useState<Room[] | null>(null);
   const [roomType, setRoomType] = useState("all");
 
@@ -56,7 +57,10 @@ const ManageRooms = () => {
                 ))}
             </select>
           </div>
-          <button className="p-4 bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-1">
+          <button
+            onClick={() => navigate("/admin/add-room")}
+            className="p-4 bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-1"
+          >
             + Add Room
           </button>
         </div>

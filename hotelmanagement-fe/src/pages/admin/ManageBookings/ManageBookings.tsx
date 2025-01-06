@@ -34,14 +34,14 @@ const ManageBookings = () => {
 
   return (
     <div className="flex flex-col items-center justify-start min-h-screen bg-gray-100 p-6 space-y-6">
-      <div className="bg-white shadow-lg rounded-lg p-6 w-full max-w-2xl">
+      <div className="w-full max-w-2xl">
         <label>Find by booking code: </label>
         <input
           value={bookingCode}
           onChange={handleChange}
           type="text"
           placeholder="Search for booking"
-          className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-sm"
+          className="mt-1 w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-sm"
         />
       </div>
 

@@ -57,7 +57,7 @@ const EditRoom = () => {
           if (result.statusCode === 200) {
             trigger();
             refetch();
-            navigate("/admin/manage-rooms");
+            navigate(-1);
           }
         });
     } catch (error) {}

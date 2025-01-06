@@ -4,7 +4,7 @@ import Container from "../../../components/Container/Container";
 import HotelServices from "../../../components/HotelServices/HotelServices";
 import RoomCard from "../../../components/RoomCard/RoomCard";
 import RoomFilter from "../../../components/RoomFilter/RoomFilter";
-import { Room } from "../../../types/RoomType";
+import { Room } from "../../../types/RoomServiceTypes";
 
 const Home = () => {
   const [roomsData, setRoomsData] = useState<Room[] | null>(null);

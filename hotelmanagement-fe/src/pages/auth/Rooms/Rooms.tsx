@@ -3,7 +3,7 @@ import Container from "../../../components/Container/Container";
 import RoomCard from "../../../components/RoomCard/RoomCard";
 import RoomFilter from "../../../components/RoomFilter/RoomFilter";
 import { useGetRoomsQuery } from "../../../hooks/rooms";
-import { Room } from "../../../types/RoomType";
+import { Room } from "../../../types/RoomServiceTypes";
 
 const Rooms = () => {
   const { data: rooms, isLoading, error, isSuccess } = useGetRoomsQuery();

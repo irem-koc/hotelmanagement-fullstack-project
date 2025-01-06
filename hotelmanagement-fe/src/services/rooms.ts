@@ -1,5 +1,6 @@
 import { apiWithTag } from "../api/emptySplitApi";
 import {
+  AddRoomRequest,
   DeleteRoomRequest,
   UpdateRoomRequest,
 } from "../types/RoomServiceTypes";
@@ -29,7 +30,24 @@ export const roomsApi = apiWithTag.injectEndpoints({
         };
       },
     }),
+    addRoom: build.mutation<AddRoomRequest, Partial<AddRoomRequest>>({
+      query(body) {
+        return {
+          url: `rooms/add`,
+          method: "POST",
+          body: body.request,
+          headers: {
+            Authorization: `Bearer ${body.token}`,
+            "Content-Type": "application/json",
+          },
+        };
+      },
+    }),
   }),
 });
 
-export const { useUpdateRoomMutation, useDeleteRoomMutation } = roomsApi;
+export const {
+  useUpdateRoomMutation,
+  useDeleteRoomMutation,
+  useAddRoomMutation,
+} = roomsApi;

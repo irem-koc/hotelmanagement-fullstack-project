@@ -28,6 +28,7 @@ export const roomsApi = apiWithTag.injectEndpoints({
 });
 export const {
   useGetRoomTypesQuery,
+  useLazyGetRoomTypesQuery,
   useGetRoomsQuery,
   useLazyGetRoomsQuery,
   useLazyGetAvailableRoomsByDateAndTypeQuery,

@@ -12,10 +12,12 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.iremkoc.hotel.hotelmanagement.dto.EditRoomRequest;
 import com.iremkoc.hotel.hotelmanagement.dto.Response;
 import com.iremkoc.hotel.hotelmanagement.service.interfaces.IRoomService;
 
@@ -81,14 +83,11 @@ public class RoomController {
         return ResponseEntity.status(response.getStatusCode()).body(response);
     }
 
-    @PostMapping("/update/{roomId}")
+    @PostMapping("/update/{id}")
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<Response> updateRoom(@PathVariable Long id,
-            @RequestParam(value = "photo", required = false) String photo,
-            @RequestParam(value = "roomType", required = false) String roomType,
-            @RequestParam(value = "roomPrice", required = false) BigDecimal roomPrice,
-            @RequestParam(value = "roomDescription", required = false) String roomDescription) {
-        Response response = roomService.updateRoom(id, photo, roomType, roomPrice, roomDescription);
+            @RequestBody EditRoomRequest editRoomRequest) {
+        Response response = roomService.updateRoom(id, editRoomRequest);
         return ResponseEntity.status(response.getStatusCode()).body(response);
     }
 

@@ -12,7 +12,6 @@ import {
 
 const EditRoom = () => {
   const params = useParams();
-  console.log(params, "params");
   const { data: room, isLoading, refetch } = useGetRoomDetailQuery(params.id);
   const [trigger] = useLazyGetRoomsQuery();
   const [updateRoomMutation] = useUpdateRoomMutation();

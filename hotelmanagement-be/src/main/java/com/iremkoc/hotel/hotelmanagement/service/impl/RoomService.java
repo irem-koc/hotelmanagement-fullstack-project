@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import com.iremkoc.hotel.hotelmanagement.dto.EditRoomRequest;
 import com.iremkoc.hotel.hotelmanagement.dto.Response;
 import com.iremkoc.hotel.hotelmanagement.dto.RoomDto;
 import com.iremkoc.hotel.hotelmanagement.entity.Room;
@@ -107,33 +108,44 @@ public class RoomService implements IRoomService {
     }
 
     @Override
-    public Response updateRoom(Long roomId, String photo, String roomType, BigDecimal roomPrice,
-            String roomDescription) {
+    public Response updateRoom(Long roomId, EditRoomRequest editRoomRequest) {
         Response response = new Response();
-        try {
 
+        try {
             Room room = roomRepository.findById(roomId)
                     .orElseThrow(() -> new OurException("Room not found for update operation!"));
-            if (roomType != null)
-                room.setRoomType(roomType);
-            if (roomPrice != null)
-                room.setRoomPrice(roomPrice);
-            if (roomDescription != null)
-                room.setRoomDescription(roomDescription);
-            if (photo != null)
-                room.setRoomPhotoUrl(photo);
+            System.out.println(editRoomRequest.getRoomDescription() + "roomPrice");
+            if (editRoomRequest.getRoomType() != null) {
+                room.setRoomType(editRoomRequest.getRoomType());
+            }
+            if (editRoomRequest.getRoomPrice() != null) {
+                room.setRoomPrice(editRoomRequest.getRoomPrice());
+            }
+            if (editRoomRequest.getRoomDescription() != null) {
+                room.setRoomDescription(editRoomRequest.getRoomDescription());
+            }
+            if (editRoomRequest.getPhoto() != null) {
+                room.setRoomPhotoUrl(editRoomRequest.getPhoto());
+            }
+
             Room updatedRoom = roomRepository.save(room);
-            RoomDto roomDto = Utils.mapRoomEntityToRoomDto(updatedRoom);
+
+            System.out.println("Updated Room: " + updatedRoom);
+
+            RoomDto roomDTO = Utils.mapRoomEntityToRoomDto(updatedRoom);
+
             response.setStatusCode(200);
-            response.setMessage("Successfully updated room which id is " + roomId);
-            response.setRoom(roomDto);
+            response.setMessage("Successfully updated room with ID " + roomId);
+            response.setRoom(roomDTO);
+
         } catch (OurException e) {
             response.setStatusCode(404);
             response.setMessage(e.getMessage());
         } catch (Exception e) {
             response.setStatusCode(500);
-            response.setMessage("Error occured during room adding " + e.getMessage());
+            response.setMessage("Error occurred during room update: " + e.getMessage());
         }
+
         return response;
     }
 

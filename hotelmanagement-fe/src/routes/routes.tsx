@@ -99,7 +99,7 @@ const routes: RouteObject[] = [
           { path: "profile", element: <AdminBoard /> },
           { path: "rooms", element: <AdminRooms /> },
           { path: "find-booking", element: <AdminFindBooking /> },
-          { path: "edit-room", element: <EditRoom /> },
+          { path: "edit-room/:id", element: <EditRoom /> },
           { path: "add-room", element: <AddRoom /> },
           {
             path: "edit-booking/:bookingConfirmationCode",
